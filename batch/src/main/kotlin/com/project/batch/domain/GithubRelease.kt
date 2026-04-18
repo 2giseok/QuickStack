@@ -1,0 +1,17 @@
+package com.project.batch.domain
+
+import com.project.batch.constants.Status
+import org.springframework.data.relational.core.mapping.Table
+import java.time.Instant
+
+@Table("github_release")
+data class GithubRelease(
+    val techStack: String,
+    val tagName: String,
+    val name: String?,
+    val body: String?,
+    val publishedAt: Instant,
+    val prerelease: Boolean,
+    val draft: Boolean,
+    val status: Status = Status.PENDING,
+)

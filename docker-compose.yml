@@ -1,16 +1,14 @@
 services:
   mysql:
-    image: 'mysql:8.0'
-    container_name: "mysql-container"
-    environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: sa
-      MYSQL_PASSWORD: 123
-
+    image: mysql:8.0
+    container_name: mysql
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: quick_stack
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+
 volumes:
-  mysql-data:
+  mysql_data:
