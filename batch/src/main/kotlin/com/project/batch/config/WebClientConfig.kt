@@ -53,8 +53,17 @@ class WebClientConfig(
             ).secretString()
         ).get(secretName).asString()
 
+        val httpClient = HttpClient.create()
+            .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, CONNECT_TIMEOUT_MILLIS)
+            .responseTimeout(Duration.ofMillis(READ_TIMEOUT_MILLIS))
+            .doOnConnected { conn ->
+                conn.addHandlerLast(ReadTimeoutHandler(READ_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS))
+                    .addHandlerLast(WriteTimeoutHandler(WRITE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS))
+            }
+
         return WebClient.builder()
             .baseUrl(GITHUB_BASE_URL)
+            .clientConnector(ReactorClientHttpConnector(httpClient))
             .codecs { it.defaultCodecs().maxInMemorySize(GITHUB_MAX_IN_MEMORY_SIZE) }
             .defaultHeader("Authorization", "Bearer $token")
             .defaultHeader("Accept", "application/vnd.github+json")

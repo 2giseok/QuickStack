@@ -1,5 +1,6 @@
 package com.project.batch.task
 
+import com.project.batch.aop.LogExecutionTime
 import com.project.batch.constants.TechStack
 import com.project.batch.remote.collector.GithubReleaseCollector
 import com.project.batch.repository.GithubReleaseRepository
@@ -18,7 +19,8 @@ class GithubReleaseTask(
     private val clock: Clock,
 ) {
 
-    @Scheduled(cron = "0 0 0/3 * * *", zone = "Asia/Seoul")
+    @LogExecutionTime
+    @Scheduled(cron = "0 */2 * * * *", zone = "Asia/Seoul")
     suspend fun collectGithubReleases() = supervisorScope {
         val releases = githubReleaseCollector.collectAllReleases(TechStack.entries)
         githubReleaseRepository.bulkInsert(releases)
