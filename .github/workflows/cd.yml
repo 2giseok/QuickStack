@@ -82,6 +82,7 @@ jobs:
           key: ${{ secrets.DEV_EC2_PEM }}
           envs: REGISTRY,REPOSITORY
           script: |
+            /snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY
             if [ "$REPOSITORY" = "api" ]; then
               PORT=8081
             elif [ "$REPOSITORY" = "batch" ]; then
@@ -111,6 +112,7 @@ jobs:
           key: ${{ secrets.PROD_EC2_PEM }}
           envs: REGISTRY,REPOSITORY
           script: |
+            /snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY
             if [ "$REPOSITORY" = "api" ]; then
               PORT=8081
             elif [ "$REPOSITORY" = "batch" ]; then
@@ -124,7 +126,7 @@ jobs:
             docker rm $REPOSITORY|| true
             docker run -d \
               --name $REPOSITORY \
-              --network  quick-stack
+              --network  quick-stack \
               -e SPRING_PROFILES_ACTIVE=prod \
               -p $PORT:8080 \
               $REGISTRY/$REPOSITORY:latest
