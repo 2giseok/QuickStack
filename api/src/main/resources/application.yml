@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: api
+  datasource:
+    username: root
+    password: root
+  mvc:
+    servlet:
+      path: /api
+server:
+  port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/quick_stack
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+
+    url: jdbc:mysql://mysql:3306/quick_stack
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    servlet:
+      path: /api
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/quick_stack
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    servlet:
+      path: /api

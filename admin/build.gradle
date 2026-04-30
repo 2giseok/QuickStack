@@ -1,1 +1,7 @@
-// admin module — common config inherited from root
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+
+
+}// admin module — common config inherited from root

@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+
+  application:
+    name: api
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/quick_stack
+  jpa:
+    hibernate:
+      ddl-auto: none

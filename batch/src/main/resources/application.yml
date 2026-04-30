@@ -1,0 +1,71 @@
+server:
+  port: 5500
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+r2dbc:
+  host: localhost
+  port: 3306
+  database: quick_stack
+  username: root
+  password: root
+
+aws:
+  secrets:
+    name:
+      github-release-token: local/github-release-token
+
+discord:
+  channel:
+    github-release-notification: local/github-release-notification
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+r2dbc:
+  host: localhost
+  port: 3306
+  database: quick_stack
+  username: root
+  password: root
+
+aws:
+  secrets:
+    name:
+      github-release-token: development/github-release-token
+
+discord:
+  channel:
+    github-release-notification: development/github-release-notification
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+r2dbc:
+  host: localhost
+  port: 3306
+  database: quick_stack
+  username: root
+  password: root
+
+aws:
+  secrets:
+    name:
+      github-release-token: production/github-release-token
+
+discord:
+  channel:
+    github-release-notification: production/github-release-notification
