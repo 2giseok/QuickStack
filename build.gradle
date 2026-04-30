@@ -4,6 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7' apply false
 	id 'org.jetbrains.kotlin.jvm' version '2.1.0' apply false
 	id 'org.jetbrains.kotlin.plugin.spring' version '2.1.0' apply false
+	id 'org.jetbrains.kotlin.plugin.jpa' version '2.1.0' apply false
 }
 
 group = 'com.project'
@@ -28,16 +29,10 @@ subprojects {
 	}
 
 	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter-security'
-		implementation 'org.projectlombok:lombok'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'com.mysql:mysql-connector-j'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.security:spring-security-test'
 		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-		annotationProcessor 'org.projectlombok:lombok'
 	}
 
 	tasks.named('test') {

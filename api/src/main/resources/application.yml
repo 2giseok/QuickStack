@@ -1,53 +1,78 @@
 spring:
   application:
     name: api
-  datasource:
-    username: root
-    password: root
   mvc:
     servlet:
       path: /api
+
 server:
   port: 8081
+
 ---
+
 spring:
   config:
     activate:
       on-profile: local
-
   datasource:
     url: jdbc:mysql://localhost:3306/quick_stack
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 1  # 로컬 개발 환경 - 단일 커넥션으로 충분
+      minimum-idle: 1
+      connection-timeout: 5000
+      idle-timeout: 300000
+      max-lifetime: 1700000
+      keepalive-time: 60000
+      connection-test-query: SELECT 1
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
 ---
+
 spring:
   config:
     activate:
       on-profile: dev
-
   datasource:
-
-    url: jdbc:mysql://mysql:3306/quick_stack
+    url: jdbc:mysql://localhost:3306/quick_stack
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 1  # 프론트 연동용 개발 환경 - 단일 커넥션으로 충분
+      minimum-idle: 1
+      connection-timeout: 5000
+      idle-timeout: 300000
+      max-lifetime: 1700000
+      keepalive-time: 60000
+      connection-test-query: SELECT 1
   jpa:
     hibernate:
       ddl-auto: update
-  mvc:
-    servlet:
-      path: /api
 
 ---
+
 spring:
   config:
     activate:
       on-profile: prod
-
   datasource:
-    url: jdbc:mysql://mysql:3306/quick_stack
+    hikari:
+      maximum-pool-size: 20             # RDS max_connections=60 기준, admin/batch 여유분을 고려해 api에 20 할당
+      minimum-idle: 5                   # 상시 트래픽 대비 최소 5개 유지 (0이면 요청마다 커넥션 생성 지연 발생)
+      connection-timeout: 5000          # 30s 기본값 → 5s로 단축하여 DB 문제 시 사용자 대기 최소화
+      idle-timeout: 300000              # 5분 유휴 상태인 커넥션 반환하여 DB 자원 절약
+      max-lifetime: 1700000             # RDS wait_timeout(기본 8h)보다 충분히 짧게 설정하여 stale 커넥션 방지
+      keepalive-time: 60000             # 1분마다 유휴 커넥션 생존 확인 (DB가 먼저 끊은 커넥션을 풀에서 사전 제거)
+      connection-test-query: SELECT 1   # 커넥션 획득 시 유효성 검증 (SSL 연결 포함)
   jpa:
     hibernate:
       ddl-auto: validate
-  mvc:
-    servlet:
-      path: /api
+
+aws:
+  secretsmanager:
+    database-endpoint: production/database-endpoint

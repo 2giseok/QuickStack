@@ -52,7 +52,7 @@ class WebClientConfig(
             secretsManagerClient.getSecretValue(
                 GetSecretValueRequest.builder().secretId(secretName).build()
             ).secretString()
-        ).get(secretName).asString()
+        )[secretName]!!.asString()
 
         val httpClient = HttpClient.create()
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, CONNECT_TIMEOUT_MILLIS)

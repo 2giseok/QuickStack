@@ -1,0 +1,5 @@
+[versions]
+jackson = "3.1.0"
+
+[libraries]
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
