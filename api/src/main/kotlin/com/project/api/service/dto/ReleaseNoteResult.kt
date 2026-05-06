@@ -28,21 +28,21 @@ data class ReleaseNoteResults(
 }
 
 data class ReleaseNoteResult(
+    val id: Long,
     val techStack: TechStack,
     val tagName: String,
     val name: String?,
     val category: Category,
     val publishedAt: LocalDateTime,
-    val prerelease: Boolean,
 ) {
     companion object {
         fun from(release: GithubRelease) = ReleaseNoteResult(
+            id = release.id,
             techStack = release.techStack,
             tagName = release.tagName,
             name = release.name,
             category = Category.from(release.techStack),
             publishedAt = release.publishedAt,
-            prerelease = release.prerelease,
         )
     }
 }

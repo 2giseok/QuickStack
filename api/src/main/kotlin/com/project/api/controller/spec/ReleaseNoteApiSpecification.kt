@@ -8,14 +8,14 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 
-@Tag(name = "Release Note", description = "기술 스택 릴리즈 노트 API")
+@Tag(name = "Release Note", description = "릴리즈 노트 API")
 interface ReleaseNoteApiSpecification {
 
-    @Operation(summary = "릴리즈 노트 카테고리 목록 조회")
+    @Operation(summary = "릴리즈 노트 카테고리 API")
     fun getCategories(): CategoryResponseList
 
     @Operation(
-        summary = "릴리즈 노트 목록 조회",
+        summary = "릴리즈 노트 목록 API",
         parameters = [
             Parameter(name = "category", description = "카테고리 (ALL, FRONTEND, BACKEND, DEVOPS, LANGUAGE, AI)", example = "ALL"),
             Parameter(name = "keyword", description = "기술 스택 검색어", example = "REACT"),
