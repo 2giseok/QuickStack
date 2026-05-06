@@ -1,4 +1,5 @@
 create table if not exists github_release(
+    id           bigint                        not null primary key,
     tech_stack   varchar(30)                   not null,
     tag_name     varchar(100)                  not null,
     name         varchar(500)                  null,
@@ -7,7 +8,7 @@ create table if not exists github_release(
     prerelease   tinyint(1)  default 0         not null,
     draft        tinyint(1)  default 0         not null,
     status       varchar(15) default 'PENDING' not null,
-    primary key (tech_stack, tag_name)
+    constraint uk_github_release unique (tech_stack, tag_name)
 );
 
 create table if not exists tech_blog

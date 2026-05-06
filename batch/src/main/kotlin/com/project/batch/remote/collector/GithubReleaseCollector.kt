@@ -3,6 +3,7 @@ package com.project.batch.remote.collector
 import com.project.batch.constants.TechStack
 import com.project.batch.domain.GithubRelease
 import com.project.batch.remote.GithubReleaseApiCaller
+import com.project.batch.utils.Snowflake
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
@@ -13,6 +14,7 @@ import java.time.Instant
 @Component
 class GithubReleaseCollector(
     private val githubReleaseApiCaller: GithubReleaseApiCaller,
+    private val snowflake: Snowflake,
 ) {
     companion object {
         private val log = LoggerFactory.getLogger(GithubReleaseCollector::class.java)
@@ -27,6 +29,7 @@ class GithubReleaseCollector(
                         .getOrElse { emptyList() }
                         .map { release ->
                             GithubRelease(
+                                id = snowflake.nextId(),
                                 techStack = techStack,
                                 tagName = release.tagName,
                                 name = release.name,

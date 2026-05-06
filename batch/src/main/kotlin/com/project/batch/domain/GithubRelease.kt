@@ -7,6 +7,7 @@ import java.time.Instant
 
 @Table("github_release")
 data class GithubRelease(
+    val id: Long = 0,
     val techStack: TechStack,
     val tagName: String,
     val name: String?,

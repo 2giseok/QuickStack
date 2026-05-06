@@ -19,25 +19,26 @@ class GithubReleaseRepository(
     suspend fun bulkInsert(releases: List<GithubRelease>) {
         if (releases.isEmpty()) return
 
-        val placeholders = releases.joinToString(", ") { "(?, ?, ?, ?, ?, ?, ?, ?)" }
+        val placeholders = releases.joinToString(", ") { "(?, ?, ?, ?, ?, ?, ?, ?, ?)" }
         val sql = """
-            INSERT INTO github_release (tech_stack, tag_name, name, body, published_at, prerelease, draft, status)
+            INSERT INTO github_release (id, tech_stack, tag_name, name, body, published_at, prerelease, draft, status)
             VALUES $placeholders
             ON DUPLICATE KEY UPDATE tech_stack = tech_stack
         """.trimIndent()
 
         var spec = databaseClient.sql(sql)
         releases.forEachIndexed { i, release ->
-            val base = i * 8
-            spec = spec.bind(base, release.techStack.code)
-            spec = spec.bind(base + 1, release.tagName)
-            spec = if (release.name != null) spec.bind(base + 2, release.name) else spec.bindNull(base + 2, String::class.java)
-            spec = if (release.body != null) spec.bind(base + 3, release.body) else spec.bindNull(base + 3, String::class.java)
+            val base = i * 9
+            spec = spec.bind(base, release.id)
+            spec = spec.bind(base + 1, release.techStack.code)
+            spec = spec.bind(base + 2, release.tagName)
+            spec = if (release.name != null) spec.bind(base + 3, release.name) else spec.bindNull(base + 3, String::class.java)
+            spec = if (release.body != null) spec.bind(base + 4, release.body) else spec.bindNull(base + 4, String::class.java)
             spec = spec
-                .bind(base + 4, release.publishedAt)
-                .bind(base + 5, release.prerelease)
-                .bind(base + 6, release.draft)
-                .bind(base + 7, release.status.code)
+                .bind(base + 5, release.publishedAt)
+                .bind(base + 6, release.prerelease)
+                .bind(base + 7, release.draft)
+                .bind(base + 8, release.status.code)
         }
 
         spec.fetch().rowsUpdated().awaitSingle()
@@ -53,6 +54,7 @@ class GithubReleaseRepository(
             .bind("end", end)
             .map { row ->
                 GithubRelease(
+                    id = row["id", Long::class.java]!!,
                     techStack = TechStack.fromCode(row["tech_stack", String::class.java]!!),
                     tagName = row["tag_name", String::class.java]!!,
                     name = row["name", String::class.java],

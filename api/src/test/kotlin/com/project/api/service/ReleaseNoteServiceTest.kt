@@ -4,7 +4,6 @@ import com.project.api.constants.Category
 import com.project.api.constants.Status
 import com.project.api.constants.TechStack
 import com.project.api.entity.GithubRelease
-import com.project.api.entity.GithubReleaseId
 import com.project.api.repository.GithubReleaseRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -23,7 +22,9 @@ class ReleaseNoteServiceTest {
     private val service = ReleaseNoteService(repository)
 
     private fun release(techStack: TechStack, tagName: String = "v1.0.0") = GithubRelease(
-        id = GithubReleaseId(techStack = techStack, tagName = tagName),
+        id = 1L,
+        techStack = techStack,
+        tagName = tagName,
         name = "${techStack.en} $tagName",
         body = null,
         publishedAt = LocalDateTime.now(),

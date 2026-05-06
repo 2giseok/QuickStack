@@ -97,6 +97,7 @@ class TechBlogRepositoryTest {
                     title        VARCHAR(255)  NULL,
                     url          VARCHAR(1000) NOT NULL,
                     published_at DATETIME(6)   NOT NULL,
+                    tags         JSON          NULL,
                     status       VARCHAR(20)   NOT NULL DEFAULT 'PENDING',
                     created_at   DATETIME(6)   NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
                     CONSTRAINT uq_tech_blog_url UNIQUE (url(768))

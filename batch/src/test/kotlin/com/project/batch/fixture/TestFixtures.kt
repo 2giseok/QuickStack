@@ -29,6 +29,7 @@ object TestFixtures {
         title: String = "테스트 블로그",
         url: String = "https://tech.kakao.com/2026/04/19/test",
         publishedAt: Instant = Instant.parse("2026-04-19T00:00:00Z"),
+        tags: List<String> = emptyList(),
     ) = TechBlog(
         id = 1L,
         source = source,
@@ -36,5 +37,6 @@ object TestFixtures {
         title = title,
         url = url,
         publishedAt = publishedAt,
+        tags = tags,
     )
 }

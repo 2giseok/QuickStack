@@ -8,9 +8,13 @@ import com.project.batch.service.NotificationService
 import io.mockk.coEvery
 import io.mockk.coJustRun
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
+import org.springframework.transaction.reactive.TransactionCallback
+import org.springframework.transaction.reactive.TransactionalOperator
+import reactor.core.publisher.Flux
 import java.time.Clock
 import java.time.Instant
 import java.time.LocalDate
@@ -21,9 +25,14 @@ class GithubReleaseTaskTest {
     private val collector = mockk<GithubReleaseCollector>()
     private val repository = mockk<GithubReleaseRepository>()
     private val notificationService = mockk<NotificationService>()
+    private val transactionalOperator = mockk<TransactionalOperator> {
+        every { execute(any<TransactionCallback<Any>>()) } answers {
+            Flux.from(firstArg<TransactionCallback<Any>>().doInTransaction(mockk(relaxed = true)))
+        }
+    }
     private val clock = Clock.fixed(Instant.parse("2026-04-18T00:00:00Z"), ZoneId.of("Asia/Seoul"))
 
-    private val task = GithubReleaseTask(collector, repository, notificationService, clock)
+    private val task = GithubReleaseTask(collector, repository, notificationService, transactionalOperator, clock)
 
     @Test
     fun `오늘 발행된 릴리즈가 있으면 알림을 발송한다`() = runTest {
