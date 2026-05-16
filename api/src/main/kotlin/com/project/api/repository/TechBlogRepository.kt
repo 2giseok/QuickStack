@@ -52,8 +52,7 @@ interface TechBlogRepository : JpaRepository<TechBlog, Long> {
         """
         SELECT NEW com.project.api.entity.company.PopularCompanyMappingResult(t.source, COUNT(t), MAX(t.publishedAt))
         FROM TechBlog t
-        WHERE t.status = com.project.api.constants.Status.PUBLISHED
-          AND t.source IN :sources
+        WHERE t.source IN :sources
         GROUP BY t.source
     """
     )
