@@ -1,2 +1,2 @@
 rootProject.name = 'server'
-include 'admin', 'api', 'batch'
+include 'admin', 'api', 'batch','crawler'

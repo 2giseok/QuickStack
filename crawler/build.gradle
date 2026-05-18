@@ -1,0 +1,20 @@
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.jsoup:jsoup:${jsoupVersion}"
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation "software.amazon.awssdk:secretsmanager:${awsSdkVersion}"
+    implementation "com.google.genai:google-genai:${googleGenaiVersion}"
+    implementation "org.apache.httpcomponents.client5:httpclient5:${httpclient5Version}"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}

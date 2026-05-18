@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    default: local
+  datasource:
+    username: root
+    password: root
+
+server:
+  port: 8082
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/quick_stack
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+

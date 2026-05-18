@@ -1,5 +1,6 @@
 package com.project.admin.exception;
 
+import java.util.concurrent.CompletionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -35,6 +36,23 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(CompletionException.class)
+    public ResponseEntity<ErrorResponse> handleExecutionException(CompletionException e) {
+
+        Throwable cause = e.getCause();
+        if (cause instanceof BaseException baseException) {
+            return ResponseEntity
+                    .status(baseException.getErrorCode().status())
+                    .body(ErrorResponse.from(baseException.getErrorCode()));
+        }
+        ErrorResponse errorResponse = ErrorResponse.of(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(), "요약 실패", null);
+
+        return ResponseEntity
+                .internalServerError()
                 .body(errorResponse);
     }
 }
