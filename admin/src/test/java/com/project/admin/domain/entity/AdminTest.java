@@ -16,9 +16,8 @@ class AdminTest {
     @DisplayName("생성 테스트")
     void createAdmin() {
 
-        Admin admin = Admin.create("name", "admin123", "password");
+        Admin admin = Admin.create( "admin123", "password");
 
-        assertThat(admin.getName()).isEqualTo("name");
         assertThat(admin.getLoginId()).isEqualTo("admin123");
         assertThat(admin.getPassword()).isEqualTo("password");
 

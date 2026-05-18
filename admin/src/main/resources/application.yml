@@ -19,7 +19,13 @@ gemini:
 aws:
   secrets:
     name:
-      gemini-api-key: admin/secrets
+      gemini-api-key: geminiApiKey
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
 ---
 spring:
   config:
@@ -30,7 +36,7 @@ spring:
     url: jdbc:mysql://localhost:3306/quick_stack
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 ---
 spring:
   config:

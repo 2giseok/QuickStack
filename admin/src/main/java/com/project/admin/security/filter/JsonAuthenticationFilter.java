@@ -1,6 +1,6 @@
 package com.project.admin.security.filter;
 
-import com.project.admin.controller.dto.AdminSigninRequest;
+import com.project.admin.controller.dto.request.admin.AdminSigninRequest;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,18 +25,19 @@ public class JsonAuthenticationFilter extends AbstractAuthenticationProcessingFi
     }
 
     @Override
-    public @Nullable Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+    public @Nullable Authentication attemptAuthentication(HttpServletRequest request,
+            HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
 
         if (!request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("지원하지 않는 메서드 입니다");
 
         }
-        AdminSigninRequest signinRequest = objectMapper.readValue(request.getInputStream(), AdminSigninRequest.class);
+        AdminSigninRequest signinRequest = objectMapper.readValue(request.getInputStream(),
+                AdminSigninRequest.class);
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 signinRequest.loginId(), signinRequest.password());
-
 
         return this.getAuthenticationManager().authenticate(token);
 

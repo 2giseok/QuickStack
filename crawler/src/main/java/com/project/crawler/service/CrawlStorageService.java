@@ -26,6 +26,7 @@ public class CrawlStorageService {
             crawlerContentService.handle403(techBlog);
         } catch (Exception e) {
             log.warn("크롤링 실패 url ={}", techBlog.getUrl());
+            log.info("오류 ={}", e.getMessage());
             crawlerContentService.handleTimeout(techBlog, e.getClass().getSimpleName());
         }
     }

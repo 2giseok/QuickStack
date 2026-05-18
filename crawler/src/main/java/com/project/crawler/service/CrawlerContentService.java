@@ -18,27 +18,35 @@ public class CrawlerContentService {
 
     @Transactional
     public void saveSuccess(TechBlog techBlog, String content) {
-        techBlogContentRepository.save(
-                TechBlogContent.success(techBlog, content)
-        );
+        TechBlogContent entity = techBlogContentRepository
+                .findById(techBlog.getId())
+                .orElse(TechBlogContent.init(techBlog));
+
+        entity.updateSuccess(content);
+        techBlogContentRepository.save(entity);
         techBlog.markAsUnpublished();
         techBlogRepository.save(techBlog);
     }
 
     @Transactional
     public void handle403(TechBlog techBlog) {
-        techBlogContentRepository.save(
-                TechBlogContent.failed(techBlog, CrawlStatus.FAILED_403, "403 FORBIDDEN")
-        );
+        TechBlogContent entity = techBlogContentRepository
+                .findById(techBlog.getId())
+                .orElse(TechBlogContent.init(techBlog));
+
+        entity.updateFailed(CrawlStatus.FAILED_403, "403 FORBIDDEN");
+        techBlogContentRepository.save(entity);
         techBlog.markAsFailed();
         techBlogRepository.save(techBlog);
     }
 
     @Transactional
     public void handleTimeout(TechBlog techBlog, String errorName) {
-        techBlogContentRepository.save(
-                TechBlogContent.failed(
-                        techBlog, CrawlStatus.FAILED_TIMEOUT,errorName)
-        );
+        TechBlogContent entity = techBlogContentRepository
+                .findById(techBlog.getId())
+                .orElse(TechBlogContent.init(techBlog));
+
+        entity.updateFailed(CrawlStatus.FAILED_TIMEOUT, errorName);
+        techBlogContentRepository.save(entity);
     }
 }

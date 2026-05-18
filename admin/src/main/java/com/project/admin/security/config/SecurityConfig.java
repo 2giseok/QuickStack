@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tools.jackson.databind.ObjectMapper;
 
-
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -25,22 +24,21 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager)  {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/admin/signup", "/admin/signin", "/error").permitAll()
-                                .requestMatchers("/admin/**").authenticated()
+                        auth.requestMatchers("/signup", "/signin", "/error","/**",
+                                        "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                .anyRequest().authenticated()
                 )
 
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
-
 
         http.addFilterBefore(jsonAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
@@ -51,8 +49,6 @@ public class SecurityConfig {
         JsonAuthenticationFilter jsonFilter = new JsonAuthenticationFilter(objectMapper);
 
         jsonFilter.setAuthenticationManager(authenticationManager);
-
-        jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler(objectMapper));
         jsonFilter.setAuthenticationFailureHandler(new AdminLoginFailHandler(objectMapper));
 
         return jsonFilter;
@@ -60,10 +56,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config) throws Exception {
-
+            AuthenticationConfiguration config) {
         return config.getAuthenticationManager();
-
     }
-
 }

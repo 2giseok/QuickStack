@@ -1,6 +1,6 @@
 package com.project.admin.security.handler;
 
-import com.project.admin.domain.exception.AdminErrorCode;
+import com.project.admin.domain.exception.admin.AdminErrorCode;
 import com.project.admin.exception.ErrorResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,8 @@
 package com.project.admin.controller;
 
-import com.project.admin.controller.dto.AdminSignupRequest;
+import com.project.admin.controller.dto.request.admin.AdminSigninRequest;
+import com.project.admin.controller.dto.request.admin.AdminSignupRequest;
+import com.project.admin.controller.spec.AdminApi;
 import com.project.admin.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,19 +12,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminController implements AdminApi {
 
     private final AdminService adminService;
 
-
-    @PostMapping("/admin/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody AdminSignupRequest request) {
-
-        adminService.createAdmin(request.name(), request.loginId(), request.password());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
-
+    @PostMapping("/signup")
+    public ResponseEntity<Void> signup(@Valid @RequestBody AdminSignupRequest request) {
+        adminService.createAdmin(request.loginId(), request.password(), request.passwordConfirm());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    @PostMapping("/signin")
+    public void signin ( AdminSigninRequest request) {
+    }
 }

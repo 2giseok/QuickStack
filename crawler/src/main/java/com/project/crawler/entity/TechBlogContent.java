@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -21,10 +23,10 @@ import lombok.Getter;
 public class TechBlogContent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tech_blog_id")
     private TechBlog techBlog;
 
@@ -37,24 +39,24 @@ public class TechBlogContent {
     private String errorName;
     private LocalDateTime createdAt;
 
-    public static TechBlogContent success(TechBlog techBlog, String content) {
-        TechBlogContent techBlogContent = new TechBlogContent();
-        techBlogContent.techBlog =techBlog;
-        techBlogContent.content = content;
-        techBlogContent.status=CrawlStatus.SUCCESS;
-        techBlogContent.createdAt=LocalDateTime.now();
-        return  techBlogContent;
-    }
-    public static TechBlogContent failed(TechBlog techBlog, CrawlStatus status, String errorName) {
-        TechBlogContent techBlogContent = new TechBlogContent();
-        techBlogContent.techBlog = techBlog;
-        techBlogContent.status=status;
-        techBlogContent.errorName =errorName;
-        techBlogContent.createdAt=LocalDateTime.now();
-        return  techBlogContent;
+    // 최초 생성
+    public static TechBlogContent init(TechBlog techBlog) {
+        TechBlogContent entity = new TechBlogContent();
+        entity.techBlog = techBlog;
+        entity.createdAt = LocalDateTime.now();
+        return entity;
     }
 
+    // 성공시 덮어쓰기
+    public void updateSuccess(String content) {
+        this.content = content;
+        this.status = CrawlStatus.SUCCESS;
+        this.errorName = null;
+    }
 
-
-
+    // 실패시 덮어쓰기
+    public void updateFailed(CrawlStatus status, String errorName) {
+        this.status = status;
+        this.errorName = errorName;  // 이전 에러 메시지 남김
+    }
 }

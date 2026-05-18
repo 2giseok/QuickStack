@@ -15,5 +15,4 @@ public enum Status {
     private final String code;
     private final String message;
 
-
 }

@@ -2,9 +2,19 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    annotationProcessor 'org.projectlombok:lombok'
-    implementation 'org.projectlombok:lombok'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation group: 'com.rometools', name: 'rome', version: '1.13.1'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+    implementation "software.amazon.awssdk:secretsmanager:${awsSdkVersion}"
+    implementation "com.google.genai:google-genai:${googleGenaiVersion}"
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("io.micrometer:micrometer-registry-prometheus")
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
 }// admin module — common config inherited from root

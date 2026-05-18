@@ -1,7 +1,7 @@
 package com.project.admin.domain.service;
 
-import com.project.admin.controller.dto.AdminSignupRequest;
-import com.project.admin.domain.exception.AdminException;
+import com.project.admin.controller.dto.request.admin.AdminSignupRequest;
+import com.project.admin.domain.exception.admin.AdminException;
 import com.project.admin.repository.AdminRepository;
 import com.project.admin.service.AdminService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +30,8 @@ class AdminServiceTest {
     @BeforeEach
     void setUp() {
 
-        request = new AdminSignupRequest("name", "admin123", "password");
-        adminService.createAdmin(request.name(), request.loginId(), request.password());
+        request = new AdminSignupRequest( "admin123", "password","password");
+        adminService.createAdmin( request.loginId(), request.password(),request.passwordConfirm());
 
     }
 
@@ -52,7 +52,7 @@ class AdminServiceTest {
 
         assertThat(adminRepository.existsByLoginId("admin123")).isTrue();
 
-        assertThatThrownBy(() -> adminService.createAdmin(request.name(), request.loginId(), request.password())).isInstanceOf(AdminException.class)
+        assertThatThrownBy(() -> adminService.createAdmin( request.loginId(), request.password(),request.passwordConfirm())).isInstanceOf(AdminException.class)
                 .hasMessage("이미 존재하는 아이디 입니다");
 
 

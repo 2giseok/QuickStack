@@ -20,10 +20,11 @@ public interface TechBlogRepository extends JpaRepository<TechBlog, Long> {
             AND t2.publishedAt > t.publishedAt
             ) < :limitSource
             ORDER BY t.publishedAt DESC
+                        LIMIT :totalLimit
             """)
     List<TechBlog> findByStatusAndLimitSource(
             @Param("status") Status status,
             @Param("limitSource") int limitSource,
-            Limit limit
+            @Param("totalLimit") int totalLimit
     );
 }

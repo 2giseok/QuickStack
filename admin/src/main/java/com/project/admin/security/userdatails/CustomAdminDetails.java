@@ -30,9 +30,7 @@ public class CustomAdminDetails implements UserDetails {
         return admin.getId();
     }
 
-    public String getName() {
-        return admin.getName();
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

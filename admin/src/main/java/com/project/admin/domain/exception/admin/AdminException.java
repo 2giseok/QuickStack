@@ -1,4 +1,4 @@
-package com.project.admin.domain.exception;
+package com.project.admin.domain.exception.admin;
 
 import com.project.admin.exception.BaseException;
 import lombok.Getter;
