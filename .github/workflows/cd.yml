@@ -15,6 +15,7 @@ on:
           - api
           - admin
           - batch
+          - crawler
 
       environment:
         description: '배포 환경'
@@ -32,10 +33,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: JDK 17
+      - name: JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Gradle 권한 부여
@@ -119,6 +120,8 @@ jobs:
               PORT=5500
             elif [ "$REPOSITORY" = "admin" ]; then
               PORT=8080
+            elif [ "$REPOSITORY" = "crawler" ]; then
+              PORT=8082
             fi
             
             docker pull $REGISTRY/$REPOSITORY:latest
