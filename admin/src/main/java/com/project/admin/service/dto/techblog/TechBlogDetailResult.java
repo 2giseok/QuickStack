@@ -2,15 +2,15 @@ package com.project.admin.service.dto.techblog;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.admin.constant.BlogRegion;
-import com.project.admin.constant.BlogSource;
+import com.project.admin.constant.Source;
 import com.project.admin.domain.entity.TechBlog;
 import com.project.admin.domain.entity.TechBlogApproval;
 import java.time.LocalDateTime;
 
 public record TechBlogDetailResult(
         Long id,
-        BlogSource source,
-        BlogRegion region,
+        Source source,
+        BlogRegion blogRegion,
         String title,
         String url,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
@@ -23,7 +23,7 @@ public record TechBlogDetailResult(
         return new TechBlogDetailResult(
                 techBlog.getId(),
                 techBlog.getSource(),
-                techBlog.getRegion(),
+                techBlog.getBlogRegion(),
                 techBlog.getTitle(),
                 techBlog.getUrl(),
                 techBlog.getPublishedAt(),

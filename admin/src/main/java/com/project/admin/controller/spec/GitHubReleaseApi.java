@@ -21,7 +21,10 @@ public interface GitHubReleaseApi {
             parameters = {
                     @Parameter(name = "status", description = "상태 (PENDING,PUBLISHED,UNPUBLISHED,DELETED", example = "PENDING"),
                     @Parameter(name = "page", description = "페이지 번호 1부터 시작", example = "1"),
-                    @Parameter(name = "size", description = "페이지 크기 최대 20", example = "20")
+                    @Parameter(name = "size", description = "페이지 크기 최대 20", example = "20"),
+                    @Parameter(name = "category", description = "카테고리 (FRONTEND, BACKEND, DEVOPS, LANGUAGE, AI)", example = "FRONTEND"),
+                    @Parameter(name = "techStack", description = "특정 기술 (REACT, SPRING_BOOT 등)", example = "REACT")
+
             }
     )
     ResponseEntity<PageResponse<GitHubReleaseListResponse>> getGitHubReleases(
@@ -30,16 +33,18 @@ public interface GitHubReleaseApi {
     @Operation(
             summary = "릴리즈 상세 조회",
             parameters = {
-                    @Parameter(name = "techStack", description = "기술 스택 (REACT,SPRING_BOOT 등,", example = "REACT"),
-                    @Parameter(name = "tagName", description = "릴리즈 태그명", example = "v0.0.1")
+                    @Parameter(name = "id", description = "릴리즈 ID", example = "1")
             })
     ResponseEntity<GitHubReleaseResponse> getGitHubRelease(
-            @PathVariable String techStack,
-            @PathVariable String tagName);
+            @PathVariable String id);
 
 
     @Operation(
-            summary = "깃허브 릴리즈 상태 변환"
+            summary = "깃허브 릴리즈 상태 변환",
+            parameters = {
+                    @Parameter(name = "ids", description = "ID 리스트", example = "[1,2,3]"),
+                    @Parameter(name = "status", description = "변경할 상태 (PUBLISHED, UNPUBLISHED", example = "DELETE")
+            }
     )
     ResponseEntity<Void> updateStatus(@RequestBody GitHubReleaseUpdateStatusRequest request);
 }

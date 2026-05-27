@@ -1,12 +1,10 @@
 package com.project.admin.service.dto.githubrelease;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.project.admin.constant.TechStack;
 import com.project.admin.domain.entity.GithubRelease;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record GitHubReleaseResult(
+        String id,
         String techStack,
         String tagName,
         String name,
@@ -16,14 +14,14 @@ public record GitHubReleaseResult(
 
     public static GitHubReleaseResult from(GithubRelease release) {
 
-        TechStack techStack = TechStack.valueOf(
-                release.getGithubReleaseId().getTechStack()
-        );
+       String category = release.getTechStack().getCategory().name();
+
         return new GitHubReleaseResult(
-                release.getGithubReleaseId().getTechStack(),
-                release.getGithubReleaseId().getTagName(),
+               String.valueOf( release.getId()),
+                release.getTechStack().name(),
+                release.getTagName(),
                 release.getName(),
-                techStack.getCategory().name(),
+                category,
                 release.getPublishedAt(),
                 release.getPrerelease()
         );

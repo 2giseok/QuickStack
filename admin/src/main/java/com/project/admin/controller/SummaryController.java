@@ -16,9 +16,11 @@ public class SummaryController {
     private final SummaryService summaryService;
 
     @PostMapping("/{techBlogId}")
-    public ResponseEntity<String> summary(@PathVariable Long techBlogId) throws Exception {
+    public ResponseEntity<String> summary(@PathVariable String techBlogId) throws Exception {
 
-        String summarize = summaryService.summarize(techBlogId).join();
+        Long id = Long.valueOf(techBlogId);
+
+        String summarize = summaryService.summarize(id).join();
 
         return ResponseEntity.ok(summarize);
     }

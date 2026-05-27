@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record GitHubReleaseDetailResult(
+        String id,
         String techStack,
         String tagName,
         String name,
@@ -17,18 +18,21 @@ public record GitHubReleaseDetailResult(
         String publisher,
         String body) {
 
-    public static GitHubReleaseDetailResult from(GithubRelease release, String publisher,
-            TechStack techStack) {
+    public static GitHubReleaseDetailResult from(GithubRelease release, String publisher) {
+
+        String category = release.getTechStack().getCategory().name();
 
         return new GitHubReleaseDetailResult(
-                release.getGithubReleaseId().getTechStack(),
-                release.getGithubReleaseId().getTagName(),
+               String.valueOf( release.getId()),
+                release.getTechStack().name(),
+                release.getTagName(),
                 release.getName(),
-                techStack.getCategory().name(),
+                category,
                 release.getPublishedAt(),
                 release.getPrerelease(),
                 publisher,
-                release.getBody());
+                release.getBody()
+        );
     }
 
 

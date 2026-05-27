@@ -2,6 +2,7 @@ package com.project.admin.repository;
 
 import com.project.admin.constant.Status;
 import com.project.admin.domain.entity.TechBlog;
+import com.project.admin.repository.quertdsl.TechBlogRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 import java.util.List;
 
-public interface TechBlogRepository extends JpaRepository<TechBlog, Long> {
+public interface TechBlogRepository extends
+        JpaRepository<TechBlog, Long>
+        , TechBlogRepositoryCustom
+{
 
     Page<TechBlog> findByStatus(Status status, Pageable pageable);
 

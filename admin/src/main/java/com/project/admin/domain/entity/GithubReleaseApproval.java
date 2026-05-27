@@ -9,15 +9,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GithubReleaseApproval extends  BaseEntity {
 
-    @EmbeddedId
-    private GithubRelease.GithubReleaseId id;
+   @Id
+    private Long  id;
 
     @MapsId
-    @OneToOne
-    @JoinColumns({
-            @JoinColumn(name = "tech_stack"),
-            @JoinColumn(name = "tag_name")
-    })
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "github_release_id")
     private GithubRelease githubRelease;
 
     public GithubReleaseApproval(GithubRelease release) {

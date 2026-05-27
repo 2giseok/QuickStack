@@ -1,6 +1,7 @@
 package com.project.admin.service;
 
 import com.project.admin.constant.Status;
+import com.project.admin.controller.dto.request.techblog.TechBlogListRequest;
 import com.project.admin.domain.entity.TechBlog;
 import com.project.admin.domain.entity.TechBlogApproval;
 import com.project.admin.domain.exception.techblog.TechBlogErrorCode;
@@ -28,9 +29,15 @@ public class TechBlogService {
     private final TechBlogRepository techBlogRepository;
     private final TechBlogApprovalRepository techBlogApprovalRepository;
 
-    public Page<TechBlogResult> getTechBlogs(Status status, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.Direction.DESC, "publishedAt");
-        return techBlogRepository.findByStatus(status, pageable)
+    public Page<TechBlogResult> getTechBlogs(TechBlogListRequest request) {
+        Pageable pageable = PageRequest.of(
+                request.page() - 1,
+                request.size(),
+                Sort.Direction.DESC,
+                "publishedAt");
+
+        return techBlogRepository.findByStatusAndSource(request.status(), request.source(),
+                        pageable)
                 .map(TechBlogResult::from);
     }
 
@@ -50,7 +57,8 @@ public class TechBlogService {
 
         List<TechBlog> techBlogs = techBlogRepository.findAllById(ids);
 
-        Map<Long, TechBlogApproval> approvalMap = techBlogApprovalRepository.findAllByTechBlogIdIn(ids)
+        Map<Long, TechBlogApproval> approvalMap = techBlogApprovalRepository.findAllByTechBlogIdIn(
+                        ids)
                 .stream()
                 .collect(Collectors.toMap(
                         a -> a.getTechBlog().getId(),

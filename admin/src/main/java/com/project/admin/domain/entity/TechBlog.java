@@ -1,7 +1,7 @@
 package com.project.admin.domain.entity;
 
 import com.project.admin.constant.BlogRegion;
-import com.project.admin.constant.BlogSource;
+import com.project.admin.constant.Source;
 import com.project.admin.constant.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,13 +13,13 @@ public class TechBlog {
 
     @Id
     private Long id;
-    @Column(name = "source", length = 100)
+    @Column(name = "source")
     @Enumerated(EnumType.STRING)
-    private BlogSource source;
-    @Column(name = "region", length = 20)
+    private Source source;
+    @Column(name = "region")
     @Enumerated(EnumType.STRING)
-    private BlogRegion region;
-    @Column(name = "title", length = 500)
+    private BlogRegion blogRegion;
+    @Column(name = "title")
     private String title;
     @Column(name = "url", length = 1000)
     private String url;
@@ -28,5 +28,8 @@ public class TechBlog {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column(name = "tags")
+    private String tags;
 
 }

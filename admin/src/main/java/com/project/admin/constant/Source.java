@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum BlogSource {
+public enum Source {
 
     // ===== 국내 - RSS =====
     KAKAO_TECH("카카오 테크", "https://tech.kakao.com/feed/", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
@@ -45,13 +45,11 @@ public enum BlogSource {
     MICROSOFT("Microsoft Engineering", "https://devblogs.microsoft.com/engineering-at-microsoft/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
     STRIPE("Stripe Engineering", "https://stripe.com/blog/feed.rss", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null);
 
-
     private final String displayName;
     private final String url;
     private final CollectionType type;
-    private final BlogRegion region;
+    private final BlogRegion blogRegion;
     private final String referer;
     private final String userAgent;
-
 
 }

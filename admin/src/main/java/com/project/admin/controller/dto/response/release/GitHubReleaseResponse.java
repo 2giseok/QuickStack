@@ -5,6 +5,7 @@ import com.project.admin.service.dto.githubrelease.GitHubReleaseDetailResult;
 import java.time.LocalDateTime;
 
 public record GitHubReleaseResponse(
+        String id,
         String techStack,
         String tagName,
         String name,
@@ -19,6 +20,7 @@ public record GitHubReleaseResponse(
     public static GitHubReleaseResponse of(GitHubReleaseDetailResult result) {
 
         return new GitHubReleaseResponse(
+                result.id(),
                 result.techStack(),
                 result.tagName(),
                 result.name(),

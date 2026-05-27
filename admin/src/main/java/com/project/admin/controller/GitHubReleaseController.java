@@ -8,6 +8,7 @@ import com.project.admin.controller.dto.response.release.GitHubReleaseListRespon
 import com.project.admin.controller.spec.GitHubReleaseApi;
 import com.project.admin.service.GitHubReleaseService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -23,21 +24,22 @@ public class GitHubReleaseController implements GitHubReleaseApi {
     @GetMapping
     public ResponseEntity<PageResponse<GitHubReleaseListResponse>> getGitHubReleases(
             @Valid GitHubReleaseListRequest request) {
-        Page<GitHubReleaseListResponse> responses = gitHubReleaseService.getGitHubReleases(request.status(),
-                        request.page(), request.size())
+        Page<GitHubReleaseListResponse> responses = gitHubReleaseService.getGitHubReleases(request)
                 .map(GitHubReleaseListResponse::of);
 
         PageResponse<GitHubReleaseListResponse> result = PageResponse.of(responses, request.page());
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{techStack}/{tagName}")
+    @GetMapping("/{id}")
     public ResponseEntity<GitHubReleaseResponse> getGitHubRelease(
-            @PathVariable String techStack,
-            @PathVariable String tagName
+            @PathVariable String id
     ) {
+
+        Long longId =  Long.valueOf(id);
+
         GitHubReleaseResponse response = GitHubReleaseResponse.of(
-                gitHubReleaseService.getGitHubRelease(techStack, tagName));
+                gitHubReleaseService.getGitHubRelease(longId));
         return ResponseEntity.ok(response);
     }
 
@@ -45,7 +47,11 @@ public class GitHubReleaseController implements GitHubReleaseApi {
     public ResponseEntity<Void> updateStatus(
             @RequestBody GitHubReleaseUpdateStatusRequest request
     ) {
-        gitHubReleaseService.updateStatus(request.ids(), request.status());
+        List<Long> ids = request.ids().stream()
+                .map(Long::valueOf)
+                .toList();
+
+        gitHubReleaseService.updateStatus(ids, request.status());
         return ResponseEntity.ok().build();
     }
 }
