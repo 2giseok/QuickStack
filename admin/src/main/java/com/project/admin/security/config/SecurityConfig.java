@@ -58,6 +58,7 @@ public class SecurityConfig {
         JsonAuthenticationFilter jsonFilter = new JsonAuthenticationFilter(objectMapper);
 
         jsonFilter.setAuthenticationManager(authenticationManager);
+        jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler());
         jsonFilter.setAuthenticationFailureHandler(new AdminLoginFailHandler(objectMapper));
 
         return jsonFilter;
