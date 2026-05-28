@@ -15,7 +15,7 @@ public class TechBlogApproval extends BaseEntity {
 
     @MapsId
     @JoinColumn(name = "tech_blog_id")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private TechBlog techBlog;
 
     @Column(columnDefinition = "text")
