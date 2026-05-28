@@ -165,7 +165,7 @@ class TechBlogRepositoryTest {
 
     private fun techBlog(
         id: Long = idGenerator.getAndIncrement(),
-        source: String = Source.KAKAO_TECH.name,
+        source: String = Source.KAKAO.name,
         region: Region = Region.DOMESTIC,
         title: String = "테스트 블로그",
         url: String = "https://tech.kakao.com/2026/04/19/test-${id}",

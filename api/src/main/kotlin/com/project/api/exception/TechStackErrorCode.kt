@@ -9,4 +9,5 @@ enum class TechStackErrorCode(
 ) : QuickStackErrorCode {
 
     INVALID_CATEGORY("INVALID_CATEGORY", "유효하지 않은 카테고리입니다.", HttpStatus.BAD_REQUEST),
+    INVALID_SOURCE("INVALID_SOURCE", "유효하지 않은 소스입니다.", HttpStatus.BAD_REQUEST),
 }

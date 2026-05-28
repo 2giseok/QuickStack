@@ -1,6 +1,7 @@
 package com.project.api.controller.dto
 
 import com.project.api.constants.Region
+import com.project.api.constants.Source
 import com.project.api.service.dto.TechBlogResult
 import com.project.api.service.dto.TechBlogResults
 import java.time.LocalDateTime
@@ -18,19 +19,25 @@ data class TechBlogListResponse(
 }
 
 data class TechBlogResponse(
-    val id: Long,
+    val id: String,
+    val source: Source,
+    val ko: String,
+    val en: String,
     val region: Region,
     val title: String,
-    val url: String,
     val publishedAt: LocalDateTime,
+    val tags: List<String>,
 ) {
     companion object {
         fun from(result: TechBlogResult) = TechBlogResponse(
-            id = result.id,
+            id = result.id.toString(),
+            source = result.source,
+            ko = result.source.ko,
+            en = result.source.en,
             region = result.region,
             title = result.title,
-            url = result.url,
             publishedAt = result.publishedAt,
+            tags = result.tags,
         )
     }
 }
