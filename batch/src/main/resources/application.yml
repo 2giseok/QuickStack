@@ -68,8 +68,8 @@ spring:
 
 batch:
   cron:
-    github-release: "0 * */3 * * *"
-    tech-blog: "0 * */3 * * *"
+    github-release: "0 0 */3 * * *"
+    tech-blog: "0 0 */3 * * *"
 
 r2dbc:
   host: quick-stack.che2qyo4y77m.ap-northeast-2.rds.amazonaws.com  # ← 변경
