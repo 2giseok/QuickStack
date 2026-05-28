@@ -98,7 +98,7 @@ jobs:
             docker run -d \
               --name $REPOSITORY \
               -e SPRING_PROFILES_ACTIVE=dev \
-              -p $PORT:8080 \
+              -p $PORT:$PORT \
               $REGISTRY/$REPOSITORY:latest
 
       - name: prod 배포
@@ -127,6 +127,7 @@ jobs:
             docker pull $REGISTRY/$REPOSITORY:latest
             docker stop $REPOSITORY || true
             docker rm $REPOSITORY|| true
+            docker system prune -f 
             docker run -d \
               --name $REPOSITORY \
               --network  quick-stack \
