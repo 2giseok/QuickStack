@@ -33,7 +33,7 @@ public class TechBlog {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "tags")
+    @Column(name = "tags", columnDefinition = "TEXT")
     private String tags;
 
 }
