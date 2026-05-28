@@ -3,6 +3,7 @@ package com.project.admin.controller.dto.response.techblog;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.admin.constant.Region;
 import com.project.admin.constant.Source;
+import com.project.admin.constant.Status;
 import com.project.admin.service.dto.techblog.TechBlogDetailResult;
 import java.time.LocalDateTime;
 
@@ -15,6 +16,7 @@ public record TechBlogDetailResponse(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime publishedAt,
         String publisher,
+        Status status,
         String summaries
 ) {
 
@@ -27,6 +29,7 @@ public record TechBlogDetailResponse(
                 result.url(),
                 result.publishedAt(),
                 result.publisher(),
+                result.status(),
                 result.summaries()
         );
     }

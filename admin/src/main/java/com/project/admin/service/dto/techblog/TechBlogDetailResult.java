@@ -3,6 +3,7 @@ package com.project.admin.service.dto.techblog;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.admin.constant.Region;
 import com.project.admin.constant.Source;
+import com.project.admin.constant.Status;
 import com.project.admin.domain.entity.TechBlog;
 import com.project.admin.domain.entity.TechBlogApproval;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public record TechBlogDetailResult(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime publishedAt,
         String publisher,
+        Status status,
         String summaries) {
 
     public static TechBlogDetailResult from(TechBlog techBlog, TechBlogApproval approval) {
@@ -28,6 +30,7 @@ public record TechBlogDetailResult(
                 techBlog.getUrl(),
                 techBlog.getPublishedAt(),
                 approval != null ? String.valueOf(approval.getUpdatedBy()) : null,
+                techBlog.getStatus(),
                 approval != null ? approval.getSummary() : null
         );
     }
