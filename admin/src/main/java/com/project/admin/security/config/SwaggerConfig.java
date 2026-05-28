@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
         return  new OpenAPI()
-                .addServersItem(new Server().url(("/api")))
+                .addServersItem(new Server().url(("/admin")))
                 .info(new Info()
                         .title("관리자 API")
                         .description("관리자 API 명세서"));
