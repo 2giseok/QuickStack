@@ -1,6 +1,7 @@
 package com.project.admin.service.dto.githubrelease;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.admin.constant.Status;
 import com.project.admin.constant.TechStack;
 import com.project.admin.domain.entity.GithubRelease;
 import java.time.Instant;
@@ -16,6 +17,7 @@ public record GitHubReleaseDetailResult(
         LocalDateTime publishedAt,
         Boolean prerelease,
         String publisher,
+        Status status,
         String body) {
 
     public static GitHubReleaseDetailResult from(GithubRelease release, String publisher) {
@@ -31,6 +33,7 @@ public record GitHubReleaseDetailResult(
                 release.getPublishedAt(),
                 release.getPrerelease(),
                 publisher,
+                release.getStatus(),
                 release.getBody()
         );
     }

@@ -1,6 +1,7 @@
 package com.project.admin.controller.dto.response.release;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.admin.constant.Status;
 import com.project.admin.service.dto.githubrelease.GitHubReleaseDetailResult;
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ public record GitHubReleaseResponse(
         LocalDateTime publishedAt,
         Boolean prerelease,
         String publisher,
+        Status status,
         String body) {
 
 
@@ -28,6 +30,7 @@ public record GitHubReleaseResponse(
                 result.publishedAt(),
                 result.prerelease(),
                 result.publisher(),
+                result.status(),
                 result.body()
 
         );
