@@ -29,6 +29,6 @@ spring:
     url: jdbc:mysql://quick-stack.che2qyo4y77m.ap-northeast-2.rds.amazonaws.com:3306/quick_stack?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
 
 

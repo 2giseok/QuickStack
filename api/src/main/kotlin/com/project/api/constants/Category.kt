@@ -104,6 +104,11 @@ enum class Category(
             TechStack.DSPY,
             TechStack.PYDANTIC_AI,
         )
+    ),
+
+    //TODO Design 관련 기술 스택 POC가 진행 중이므로, 우선은 빈 Set으로 처리
+    DESIGN(
+        "DESIGN", "Design", setOf()
     );
 
     fun contains(techStack: TechStack): Boolean =

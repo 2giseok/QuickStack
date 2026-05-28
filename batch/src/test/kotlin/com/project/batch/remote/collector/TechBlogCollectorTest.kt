@@ -3,7 +3,7 @@ package com.project.batch.remote.collector
 import com.project.batch.constants.CollectionType
 import com.project.batch.constants.Source
 import com.project.batch.fixture.TestFixtures
-import com.project.batch.remote.strategy.blog.BlogCollectorStrategy
+import com.project.batch.remote.strategy.BlogCollectorStrategy
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -21,7 +21,7 @@ class TechBlogCollectorTest {
     fun `수집된 블로그가 하나의 리스트로 합쳐서 반환된다`() = runTest {
         every { rssStrategy.supports(CollectionType.RSS) } returns true
         every { rssStrategy.supports(CollectionType.HTML) } returns false
-        coEvery { rssStrategy.collect(Source.KAKAO_TECH) } returns listOf(
+        coEvery { rssStrategy.collect(Source.KAKAO) } returns listOf(
             TestFixtures.techBlog(title = "카카오 블로그 1"),
             TestFixtures.techBlog(title = "카카오 블로그 2"),
         )
@@ -31,7 +31,7 @@ class TechBlogCollectorTest {
             TestFixtures.techBlog(title = "네이버 블로그 1"),
         )
 
-        val result = collector.collectAll(listOf(Source.KAKAO_TECH, Source.NAVER_D2))
+        val result = collector.collectAll(listOf(Source.KAKAO, Source.NAVER_D2))
 
         assertThat(result).hasSize(3)
     }
@@ -41,7 +41,7 @@ class TechBlogCollectorTest {
         every { rssStrategy.supports(any()) } returns false
         every { htmlStrategy.supports(any()) } returns false
 
-        val result = collector.collectAll(listOf(Source.KAKAO_TECH))
+        val result = collector.collectAll(listOf(Source.KAKAO))
 
         assertThat(result).isEmpty()
     }
@@ -50,11 +50,11 @@ class TechBlogCollectorTest {
     fun `수집 중 예외가 발생한 source는 빈 리스트로 처리되고 나머지는 정상 수집된다`() = runTest {
         every { rssStrategy.supports(CollectionType.RSS) } returns true
         every { rssStrategy.supports(CollectionType.HTML) } returns false
-        coEvery { rssStrategy.collect(Source.KAKAO_TECH) } throws RuntimeException("연결 실패")
+        coEvery { rssStrategy.collect(Source.KAKAO) } throws RuntimeException("연결 실패")
         coEvery { rssStrategy.collect(Source.KAKAO_PAY) } returns listOf(TestFixtures.techBlog(title = "카카오페이 블로그"))
         every { htmlStrategy.supports(any()) } returns false
 
-        val result = collector.collectAll(listOf(Source.KAKAO_TECH, Source.KAKAO_PAY))
+        val result = collector.collectAll(listOf(Source.KAKAO, Source.KAKAO_PAY))
 
         assertThat(result).hasSize(1)
         assertThat(result[0].title).isEqualTo("카카오페이 블로그")
@@ -66,7 +66,7 @@ class TechBlogCollectorTest {
         every { htmlStrategy.supports(any()) } returns false
         coEvery { rssStrategy.collect(any()) } throws RuntimeException("전체 실패")
 
-        val result = collector.collectAll(listOf(Source.KAKAO_TECH, Source.KAKAO_PAY))
+        val result = collector.collectAll(listOf(Source.KAKAO, Source.KAKAO_PAY))
 
         assertThat(result).isEmpty()
     }

@@ -1,11 +1,11 @@
-package com.project.crawler.constants;
+package com.project.admin.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum BlogRegion {
+public enum Region {
     DOMESTIC("국내"),
     INTERNATIONAL("국외");
 

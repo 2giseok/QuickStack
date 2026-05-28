@@ -6,7 +6,10 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
-@Table(name = "github_release")
+@Table(name = "github_release",
+uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"tech_stack","tag_name"})
+})
 @Entity
 @Getter
 public class GithubRelease {

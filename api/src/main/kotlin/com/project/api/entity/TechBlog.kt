@@ -4,6 +4,8 @@ import com.project.api.constants.Region
 import com.project.api.constants.Source
 import com.project.api.constants.Status
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import java.time.LocalDateTime
 
 @Entity
@@ -24,7 +26,7 @@ class TechBlog(
     @Column(name = "title")
     val title: String,
 
-    @Column(name = "url", length = 1000)
+    @Column(name = "url", length = 500)
     val url: String,
 
     @Column(name = "published_at")
@@ -33,4 +35,8 @@ class TechBlog(
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     val status: Status,
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "tags", columnDefinition = "json")
+    val tags: List<String>?,
 )

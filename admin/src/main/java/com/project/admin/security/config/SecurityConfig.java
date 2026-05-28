@@ -3,6 +3,7 @@ package com.project.admin.security.config;
 import com.project.admin.security.filter.JsonAuthenticationFilter;
 import com.project.admin.security.handler.AdminLoginFailHandler;
 import com.project.admin.security.handler.AdminLoginSuccessHandler;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager)  {
-        http.csrf(csrf -> csrf.disable())
+        http.cors(cors -> cors.configurationSource(request -> {
+                    var config = new org.springframework.web.cors.CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:3000"));
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(true);
+                    return config;
+                }))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/signup", "/signin", "/error","/**",
                                         "/swagger-ui/**", "/v3/api-docs/**").permitAll()
@@ -49,6 +58,7 @@ public class SecurityConfig {
         JsonAuthenticationFilter jsonFilter = new JsonAuthenticationFilter(objectMapper);
 
         jsonFilter.setAuthenticationManager(authenticationManager);
+        jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler());
         jsonFilter.setAuthenticationFailureHandler(new AdminLoginFailHandler(objectMapper));
 
         return jsonFilter;

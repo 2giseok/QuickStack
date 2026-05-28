@@ -1,6 +1,6 @@
 package com.project.admin.domain.entity;
 
-import com.project.admin.constant.BlogRegion;
+import com.project.admin.constant.Region;
 import com.project.admin.constant.Source;
 import com.project.admin.constant.Status;
 import jakarta.persistence.*;
@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "tech_blog",
+uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"url"})
+})
 public class TechBlog {
 
     @Id
@@ -18,10 +22,10 @@ public class TechBlog {
     private Source source;
     @Column(name = "region")
     @Enumerated(EnumType.STRING)
-    private BlogRegion blogRegion;
+    private Region region;
     @Column(name = "title")
     private String title;
-    @Column(name = "url", length = 1000)
+    @Column(name = "url", length = 500)
     private String url;
     @Column(name = "published_at")
     private LocalDateTime publishedAt;

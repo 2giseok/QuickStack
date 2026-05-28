@@ -18,22 +18,25 @@ class ReleaseNoteService(
 
     fun getReleaseNotes(category: Category, keyword: String?, page: Int, size: Int): ReleaseNoteResults {
         val pageable = PageRequest.of(page - 1, size)
-        val techStacks = resolveTechStacks(category, keyword)
+        val techStacks = if (category == Category.ALL) null else category.techStacks
 
         // Early Return
         if (techStacks != null && techStacks.isEmpty()) {
             return ReleaseNoteResults.empty(pageable)
         }
-        val result = githubReleaseRepository.findByTechStacks(techStacks ?: emptySet(), pageable)
+        val trimmedKeyword = keyword?.takeIf { it.isNotBlank() }
+        val matchedTechStacks = trimmedKeyword?.let { TechStack.search(it) } ?: emptySet()
+
+        val result = githubReleaseRepository.findByTechStacksAndKeyword(
+            techStacks ?: emptySet(),
+            matchedTechStacks,
+            trimmedKeyword,
+            pageable
+        )
 
         return ReleaseNoteResults.of(
             releaseNotes = result.content.map { ReleaseNoteResult.from(it) },
             pagination = PageResult.from(result),
         )
-    }
-
-    private fun resolveTechStacks(category: Category, keyword: String?): Set<TechStack>? {
-        val keywordMatching = keyword?.takeIf { it.isNotBlank() }?.let { TechStack.search(it) }
-        return keywordMatching ?: if (category == Category.ALL) null else category.techStacks
     }
 }

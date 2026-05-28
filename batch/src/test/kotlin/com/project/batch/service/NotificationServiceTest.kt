@@ -101,7 +101,7 @@ class NotificationServiceTest {
         val slot = slot<Any>()
         every { requestBodySpec.bodyValue(capture(slot)) } returns requestHeadersSpec
         val blogs = listOf(
-            TestFixtures.techBlog(source = Source.KAKAO_TECH.name, title = "Kafka 도입기"),
+            TestFixtures.techBlog(source = Source.KAKAO.name, title = "Kafka 도입기"),
             TestFixtures.techBlog(source = Source.WOOWAHAN.name, title = "Spring 최적화"),
         )
 
@@ -109,7 +109,7 @@ class NotificationServiceTest {
 
         val fields = (slot.captured as DiscordWebhookRequest).embeds[0].fields
         assertThat(fields).hasSize(2)
-        assertThat(fields[0].name).isEqualTo(Source.KAKAO_TECH.displayName)
+        assertThat(fields[0].name).isEqualTo(Source.KAKAO.displayName)
         assertThat(fields[0].value).contains("Kafka 도입기")
         assertThat(fields[1].name).isEqualTo(Source.WOOWAHAN.displayName)
         assertThat(fields[1].value).contains("Spring 최적화")

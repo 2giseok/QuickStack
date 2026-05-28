@@ -8,49 +8,58 @@ import lombok.RequiredArgsConstructor;
 public enum Source {
 
 
-    // ===== 국내 - RSS =====
-    KAKAO_TECH("카카오 테크", "https://tech.kakao.com/feed/", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    WOOWAHAN("우아한형제들 기술 블로그", "https://techblog.woowahan.com/feed/", CollectionType.RSS, BlogRegion.DOMESTIC, "https://techblog.woowahan.com/", null),
-    KAKAO_PAY("카카오페이 테크", "https://tech.kakaopay.com/rss.xml", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    LINE_ENGINEERING("LINE Engineering", "https://engineering.linecorp.com/ko/feed", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    DAANGN("당근", "https://medium.com/feed/daangn", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    MUSINSA("무신사 기술 블로그", "https://medium.com/feed/musinsa-tech", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    NHN("NHN Cloud", "https://meetup.nhncloud.com/rss", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    SOCAR("쏘카 기술 블로그", "https://tech.socarcorp.kr/feed.xml", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    WATCHA("왓챠 기술 블로그", "https://medium.com/feed/watcha", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    DEVSISTERS("데브시스터즈 기술 블로그", "https://tech.devsisters.com/rss.xml", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    BANKSALAD("뱅크샐러드 기술 블로그", "https://blog.banksalad.com/rss.xml", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
-    MARKET_KURLY("마켓컬리", "https://helloworld.kurly.com/feed/", CollectionType.RSS, BlogRegion.DOMESTIC, null, null),
+    KAKAO("카카오", "https://tech.kakao.com/feed/", CollectionType.RSS, Region.DOMESTIC,null,null),
+    WOOWAHAN("우아한형제들", "https://techblog.woowahan.com/feed/", CollectionType.RSS, Region.DOMESTIC,null,null),
+    KAKAO_PAY("카카오페이", "https://tech.kakaopay.com/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    LINE("LINE", "https://engineering.linecorp.com/ko/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    DAANGN("당근", "https://medium.com/feed/daangn", CollectionType.RSS, Region.DOMESTIC,null,null),
+    MUSINSA("무신사", "https://medium.com/feed/musinsa-tech", CollectionType.RSS, Region.DOMESTIC,null,null),
+    NHN("NHN", "https://meetup.nhncloud.com/rss", CollectionType.RSS, Region.DOMESTIC,null,null),
+    SOCAR("쏘카", "https://tech.socarcorp.kr/feed.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    WATCHA("왓챠", "https://medium.com/feed/watcha", CollectionType.RSS, Region.DOMESTIC,null,null),
+    DEVSISTERS("데브시스터즈", "https://tech.devsisters.com/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    BANKSALAD("뱅크샐러드", "https://blog.banksalad.com/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    KURLY("컬리", "https://helloworld.kurly.com/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    NAVER_D2("Naver D2", "https://d2.naver.com/d2.atom", CollectionType.RSS, Region.DOMESTIC,null,null),
+    TOSS("토스", "https://toss.tech/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    KAKAO_BANK("카카오뱅크", "https://tech.kakaobank.com/index.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    OLIVE_YOUNG("올리브영", "https://oliveyoung.tech/rss.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    POSTYPE("포스타입", "https://team.postype.com/rss", CollectionType.RSS, Region.DOMESTIC,null,null),
+    AITRICS("AITRICS", "https://medium.com/feed/aitrics", CollectionType.RSS, Region.DOMESTIC,null,null),
+    BEUSABLE("뷰저블", "https://beusable.net/blog/?feed=rss2", CollectionType.RSS, Region.DOMESTIC,null,null),
+    MY_REAL_TRIP("마이리얼트립", "https://medium.com/feed/myrealtrip-product", CollectionType.RSS, Region.DOMESTIC,null,null),
+    YOGI_YEO_GI("여기어때", "https://techblog.gccompany.co.kr/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    YOGIYO("요기요", "https://techblog.yogiyo.co.kr/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    HYPERCONNECT("하이퍼커넥트", "https://hyperconnect.github.io/feed.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    SAMSUNG("Samsung", "https://developer.samsung.com/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    PET_FRIENDS("펫프렌즈", "https://techblog.pet-friends.co.kr/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    LOTTE_ON("롯데ON", "https://techblog.lotteon.com/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    SARAMIN("사람인", "https://saramin.github.io/feed.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    SPOQA("스포카", "https://spoqa.github.io/atom.xml", CollectionType.RSS, Region.DOMESTIC,null,null),
+    HANCOM("한글과컴퓨터", "https://tech.hancom.com/feed", CollectionType.RSS, Region.DOMESTIC,null,null),
+    AUTOPEDIA("오토피디아", "https://medium.com/feed/autopedia", CollectionType.RSS, Region.DOMESTIC,null,null),
+    BABITALK("바비톡", "https://medium.com/feed/@babitalk", CollectionType.RSS, Region.DOMESTIC,null,null),
+    WANTED("원티드", "https://medium.com/feed/wantedjobs", CollectionType.RSS, Region.DOMESTIC,null,null),
 
-    // ===== 국내 - HTML =====
-    NAVER_D2("Naver D2", "https://d2.naver.com/home", CollectionType.HTML, BlogRegion.DOMESTIC, null, null),
-
-    // ===== 국내 - PLAYWRIGHT =====
-    TOSS_TECH("토스 테크", "https://toss.tech", CollectionType.PLAYWRIGHT, BlogRegion.DOMESTIC, null, null),
-    KAKAO_BANK("카카오뱅크 기술 블로그", "https://tech.kakaobank.com", CollectionType.PLAYWRIGHT, BlogRegion.DOMESTIC, null, null),
-    OLIVE_YOUNG("올리브영 기술 블로그", "https://oliveyoung.tech/blog", CollectionType.PLAYWRIGHT, BlogRegion.DOMESTIC, null, null),
-
-    // ===== 국외 - RSS =====
-    NETFLIX("Netflix Tech Blog", "https://medium.com/feed/netflix-techblog", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    AIRBNB("Airbnb Engineering", "https://medium.com/feed/airbnb-engineering", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    GOOGLE("Google Developers Blog", "https://developers.googleblog.com/feeds/posts/default", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    SLACK("Slack Engineering", "https://slack.engineering/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    AMAZON("Amazon AWS Blog", "https://aws.amazon.com/blogs/aws/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    GITHUB("Github Blog", "https://github.blog/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    SPOTIFY("Spotify Engineering", "https://engineering.atspotify.com/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    DROPBOX("Dropbox Tech Blog", "https://dropbox.tech/feed", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    FACEBOOK("Facebook Engineering", "https://engineering.fb.com/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    CLOUDFLARE("Cloudflare Blog", "https://blog.cloudflare.com/rss/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    PINTEREST("Pinterest Engineering", "https://medium.com/feed/pinterest-engineering", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    LYFT("Lyft Engineering", "https://eng.lyft.com/feed", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    MICROSOFT("Microsoft Engineering", "https://devblogs.microsoft.com/engineering-at-microsoft/feed/", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null),
-    STRIPE("Stripe Engineering", "https://stripe.com/blog/feed.rss", CollectionType.RSS, BlogRegion.INTERNATIONAL, null, null);
-
+    NETFLIX("Netflix", "https://medium.com/feed/netflix-techblog", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    AIRBNB("Airbnb", "https://medium.com/feed/airbnb-engineering", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    GOOGLE("Google", "https://developers.googleblog.com/feeds/posts/default/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    SLACK("Slack", "https://slack.engineering/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    AMAZON("Amazon", "https://aws.amazon.com/blogs/aws/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    GITHUB("Github", "https://github.blog/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    SPOTIFY("Spotify", "https://engineering.atspotify.com/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    DROPBOX("Dropbox", "https://dropbox.tech/feed", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    FACEBOOK("Facebook", "https://engineering.fb.com/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    CLOUDFLARE("Cloudflare", "https://blog.cloudflare.com/rss/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    PINTEREST("Pinterest", "https://medium.com/feed/pinterest-engineering", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    LYFT("Lyft", "https://eng.lyft.com/feed", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    MICROSOFT("Microsoft", "https://devblogs.microsoft.com/engineering-at-microsoft/feed/", CollectionType.RSS, Region.INTERNATIONAL,null,null),
+    STRIPE("Stripe", "https://stripe.com/blog/feed.rss", CollectionType.RSS, Region.INTERNATIONAL,null,null);
 
     private final String displayName;
     private final String url;
     private final CollectionType type;
-    private final BlogRegion region;
+    private final Region region;
     private final String referer;
     private final String userAgent;
 

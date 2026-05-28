@@ -2,7 +2,7 @@ package com.project.batch.remote.collector
 
 import com.project.batch.constants.Source
 import com.project.batch.domain.TechBlog
-import com.project.batch.remote.strategy.blog.BlogCollectorStrategy
+import com.project.batch.remote.strategy.BlogCollectorStrategy
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
@@ -28,6 +28,7 @@ class TechBlogCollector(
                     }
                         .onFailure { log.error("Failed to collect from ${source.displayName}", it) }
                         .getOrElse { emptyList() }
+                        .take(10)
                 }
             }.awaitAll().flatten()
         }
