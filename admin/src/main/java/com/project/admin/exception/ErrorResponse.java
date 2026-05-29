@@ -8,15 +8,16 @@ import java.util.Map;
 @Getter
 public class ErrorResponse {
 
-    private final int status;
+    private final boolean success =false;
+    private final int statusCode;
     private final String message;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private final Map<String, String> validationErrors;
 
 
-    private ErrorResponse(int status, String message, Map<String, String> validationErrors) {
-        this.status = status;
+    private ErrorResponse(int statusCode, String message, Map<String, String> validationErrors) {
+        this.statusCode = statusCode;
         this.message = message;
         this.validationErrors = validationErrors;
     }

@@ -64,7 +64,7 @@ public class SecurityConfig {
 
         jsonFilter.setAuthenticationManager(authenticationManager);
         jsonFilter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
-        jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler());
+        jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler(objectMapper));
         jsonFilter.setAuthenticationFailureHandler(new AdminLoginFailHandler(objectMapper));
 
         return jsonFilter;

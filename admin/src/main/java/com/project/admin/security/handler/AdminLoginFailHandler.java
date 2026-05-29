@@ -21,12 +21,10 @@ public class AdminLoginFailHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
+        response.setStatus(400);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        ErrorResponse errorResponse = ErrorResponse.from(AdminErrorCode.LOGIN_FAILED);
-        response.setStatus(errorResponse.getStatus());
-        String result = objectMapper.writeValueAsString(errorResponse);
+        String result = objectMapper.writeValueAsString(LoginResponse.fall());
         response.getWriter().write(result);
     }
 }
