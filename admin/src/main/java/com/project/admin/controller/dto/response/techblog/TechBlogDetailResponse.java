@@ -6,6 +6,7 @@ import com.project.admin.constant.Source;
 import com.project.admin.constant.Status;
 import com.project.admin.service.dto.techblog.TechBlogDetailResult;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record TechBlogDetailResponse(
         String id,
@@ -17,7 +18,8 @@ public record TechBlogDetailResponse(
         LocalDateTime publishedAt,
         String publisher,
         Status status,
-        String summaries
+        String summaries,
+        List<String> tags
 ) {
 
     public static TechBlogDetailResponse of(TechBlogDetailResult result) {
@@ -30,7 +32,8 @@ public record TechBlogDetailResponse(
                 result.publishedAt(),
                 result.publisher(),
                 result.status(),
-                result.summaries()
+                result.summaries(),
+                result.tags()
         );
     }
 }

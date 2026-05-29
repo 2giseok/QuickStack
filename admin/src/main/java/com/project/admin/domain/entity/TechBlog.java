@@ -4,8 +4,11 @@ import com.project.admin.constant.Region;
 import com.project.admin.constant.Source;
 import com.project.admin.constant.Status;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Getter
@@ -33,7 +36,8 @@ public class TechBlog {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "tags", columnDefinition = "TEXT")
-    private String tags;
+    private List<String> tags;
 
 }

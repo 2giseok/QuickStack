@@ -7,6 +7,7 @@ import com.project.admin.constant.Status;
 import com.project.admin.domain.entity.TechBlog;
 import com.project.admin.domain.entity.TechBlogApproval;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record TechBlogDetailResult(
         Long id,
@@ -18,7 +19,8 @@ public record TechBlogDetailResult(
         LocalDateTime publishedAt,
         String publisher,
         Status status,
-        String summaries) {
+        String summaries,
+        List<String> tags) {
 
     public static TechBlogDetailResult from(TechBlog techBlog, TechBlogApproval approval) {
 
@@ -31,7 +33,9 @@ public record TechBlogDetailResult(
                 techBlog.getPublishedAt(),
                 approval != null ? String.valueOf(approval.getUpdatedBy()) : null,
                 techBlog.getStatus(),
-                approval != null ? approval.getSummary() : null
+                approval != null ? approval.getSummary() : null,
+                techBlog.getTags()
+
         );
     }
 

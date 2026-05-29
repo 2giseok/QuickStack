@@ -5,6 +5,7 @@ import com.project.admin.constant.Region;
 import com.project.admin.constant.Source;
 import com.project.admin.service.dto.techblog.TechBlogResult;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record TechBlogListResponse(
         String id,
@@ -13,7 +14,8 @@ public record TechBlogListResponse(
         String title,
         String url,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-        LocalDateTime publishedAt) {
+        LocalDateTime publishedAt,
+        List<String> tags) {
 
     public static TechBlogListResponse of(TechBlogResult techBlog) {
         return new TechBlogListResponse(
@@ -22,7 +24,8 @@ public record TechBlogListResponse(
                 techBlog.region(),
                 techBlog.title(),
                 techBlog.url(),
-                techBlog.publishedAt()
+                techBlog.publishedAt(),
+                techBlog.tags()
         );
     }
 }
