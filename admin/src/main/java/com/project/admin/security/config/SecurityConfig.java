@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import tools.jackson.databind.ObjectMapper;
 
 @Configuration
@@ -38,6 +39,7 @@ public class SecurityConfig {
                     config.setAllowCredentials(true);
                     return config;
                 }))
+
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/signup", "/signin", "/error","/**",
@@ -48,6 +50,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
+        http.securityContext(context ->
+                context.securityContextRepository(new HttpSessionSecurityContextRepository())
+        );
 
         http.addFilterBefore(jsonAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
@@ -58,6 +63,7 @@ public class SecurityConfig {
         JsonAuthenticationFilter jsonFilter = new JsonAuthenticationFilter(objectMapper);
 
         jsonFilter.setAuthenticationManager(authenticationManager);
+        jsonFilter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
         jsonFilter.setAuthenticationSuccessHandler(new AdminLoginSuccessHandler());
         jsonFilter.setAuthenticationFailureHandler(new AdminLoginFailHandler(objectMapper));
 

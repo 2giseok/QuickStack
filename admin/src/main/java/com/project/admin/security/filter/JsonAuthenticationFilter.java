@@ -20,7 +20,7 @@ public class JsonAuthenticationFilter extends AbstractAuthenticationProcessingFi
     private final ObjectMapper objectMapper;
 
     public JsonAuthenticationFilter(ObjectMapper objectMapper) {
-        super("/api/admin/signin");
+        super("/admin/signin");
         this.objectMapper = objectMapper;
     }
 

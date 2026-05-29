@@ -31,7 +31,7 @@ spring:
     url: jdbc:mysql://localhost:3306/quick_stack
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 ---
 spring:
   config:

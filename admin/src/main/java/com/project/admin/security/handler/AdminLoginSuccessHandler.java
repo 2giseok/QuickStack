@@ -9,6 +9,7 @@ public class AdminLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)  {
+        request.getSession(true);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
