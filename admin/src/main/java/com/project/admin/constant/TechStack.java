@@ -94,5 +94,9 @@ public enum TechStack {
     private final String en;
     private final Category category;
 
+    public String releaseUrl(String tagName) {
+        return "https://github.com/" + owner +"/" + repo + "/releases/tag/" + tagName;
+    }
+
 
 }

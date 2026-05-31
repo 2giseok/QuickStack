@@ -16,7 +16,8 @@ public record GitHubReleaseResponse(
         Boolean prerelease,
         String publisher,
         Status status,
-        String body) {
+        String body,
+        String url) {
 
 
     public static GitHubReleaseResponse of(GitHubReleaseDetailResult result) {
@@ -31,7 +32,9 @@ public record GitHubReleaseResponse(
                 result.prerelease(),
                 result.publisher(),
                 result.status(),
-                result.body()
+                result.body(),
+                result.url()
+
 
         );
     }

@@ -36,6 +36,11 @@ public class GithubRelease {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
+    public String getReleaseUrl() {
+        return techStack.releaseUrl(tagName);
+    }
+
 }
 
 

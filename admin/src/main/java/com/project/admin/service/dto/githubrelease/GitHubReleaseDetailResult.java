@@ -18,7 +18,8 @@ public record GitHubReleaseDetailResult(
         Boolean prerelease,
         String publisher,
         Status status,
-        String body) {
+        String body,
+        String url) {
 
     public static GitHubReleaseDetailResult from(GithubRelease release, String publisher) {
 
@@ -34,7 +35,8 @@ public record GitHubReleaseDetailResult(
                 release.getPrerelease(),
                 publisher,
                 release.getStatus(),
-                release.getBody()
+                release.getBody(),
+                release.getReleaseUrl()
         );
     }
 
