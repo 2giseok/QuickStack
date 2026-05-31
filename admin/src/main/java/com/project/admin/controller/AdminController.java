@@ -3,6 +3,7 @@ package com.project.admin.controller;
 import com.project.admin.controller.dto.request.admin.AdminSigninRequest;
 import com.project.admin.controller.dto.request.admin.AdminSignupRequest;
 import com.project.admin.controller.spec.AdminApi;
+import com.project.admin.security.handler.LoginResponse;
 import com.project.admin.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class AdminController implements AdminApi {
     }
 
     @PostMapping("/signin")
-    public void signin ( AdminSigninRequest request) {
+    public LoginResponse signin ( AdminSigninRequest request) {
+
+        return LoginResponse.ok();
     }
 }

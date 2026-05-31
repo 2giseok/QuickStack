@@ -2,6 +2,7 @@ package com.project.admin.controller.spec;
 
 import com.project.admin.controller.dto.request.admin.AdminSigninRequest;
 import com.project.admin.controller.dto.request.admin.AdminSignupRequest;
+import com.project.admin.security.handler.LoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +18,7 @@ public interface AdminApi {
     ResponseEntity<Void> signup(@Valid @RequestBody AdminSignupRequest request);
 
     @Operation(summary = "관리자 로그인")
-    void signin(AdminSigninRequest request);
+    LoginResponse signin(AdminSigninRequest request);
 
 
 
