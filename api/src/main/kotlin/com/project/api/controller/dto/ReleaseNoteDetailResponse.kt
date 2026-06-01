@@ -14,6 +14,7 @@ data class ReleaseNoteDetailResponse(
     val publishedAt: LocalDateTime,
     val prerelease: Boolean,
     val category: Category,
+    val url: String
 ) {
     companion object {
         fun from(release: ReleaseNoteDetailResults) = ReleaseNoteDetailResponse(
@@ -24,8 +25,8 @@ data class ReleaseNoteDetailResponse(
             body = release.body,
             publishedAt = release.publishedAt,
             prerelease = release.prerelease,
-            category = Category.from(release.techStack,
-            )
+            category = Category.from(release.techStack),
+            url =  release.url
         )
     }
 }

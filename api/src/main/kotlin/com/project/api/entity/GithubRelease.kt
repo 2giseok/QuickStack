@@ -39,5 +39,7 @@ class GithubRelease(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    var status: Status
-)
+    var status: Status,
+) {
+    fun  getReleaseUrl() = techStack.releaseUrl(tagName);
+}
