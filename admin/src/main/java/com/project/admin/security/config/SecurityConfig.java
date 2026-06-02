@@ -33,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager)  {
         http.cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:3000"));
+                    config.setAllowedOrigins(List.of("http://localhost:3000", "https://quick-stack-psi.vercel.app"));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/signup", "/signin", "/error","/**",
+                        auth.requestMatchers("/signup", "/signin", "/error",
                                         "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
                 )

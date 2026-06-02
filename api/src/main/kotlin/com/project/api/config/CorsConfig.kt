@@ -12,7 +12,7 @@ class CorsConfig {
     @Bean(name = ["corsConfigurationSource"])
     fun corsConfigurationSource(): CorsConfigurationSource {
         val config = CorsConfiguration().apply {
-            allowedOrigins = listOf("http://localhost:3000")
+            allowedOrigins = listOf("http://localhost:3000", "https://quick-stack-psi.vercel.app")
             allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
             allowedHeaders = listOf("*")
             allowCredentials = true
