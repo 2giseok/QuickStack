@@ -3,6 +3,7 @@ package com.project.admin.security.config;
 import com.project.admin.security.filter.JsonAuthenticationFilter;
 import com.project.admin.security.handler.AdminLoginFailHandler;
 import com.project.admin.security.handler.AdminLoginSuccessHandler;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager)  {
         http.cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:3000","https://quick-stack-psi.vercel.app/"));
+                    config.setAllowedOrigins(List.of("http://localhost:3000","https://quick-stack-psi.vercel.app"));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
@@ -50,6 +51,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
+        http.exceptionHandling(exception ->
+        exception.authenticationEntryPoint((request, response, authException) -> {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }));
+
         http.securityContext(context ->
                 context.securityContextRepository(new HttpSessionSecurityContextRepository())
         );

@@ -55,3 +55,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: true
