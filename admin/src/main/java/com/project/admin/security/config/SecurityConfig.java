@@ -52,9 +52,10 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 );
         http.exceptionHandling(exception ->
-        exception.authenticationEntryPoint((request, response, authException) -> {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        }));
+                exception.authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                )
+        );
 
         http.securityContext(context ->
                 context.securityContextRepository(new HttpSessionSecurityContextRepository())
