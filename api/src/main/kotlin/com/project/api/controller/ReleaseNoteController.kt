@@ -30,6 +30,7 @@ class ReleaseNoteController(
     ): ReleaseNoteListResponse =
         ReleaseNoteListResponse.from(
             releaseNoteService.getReleaseNotes(
+                searchCondition.techStack,
                 searchCondition.category,
                 searchCondition.keyword,
                 searchCondition.page,

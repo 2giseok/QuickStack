@@ -19,9 +19,14 @@ class ReleaseNoteService(
     private val githubReleaseRepository: GithubReleaseRepository,
 ) {
 
-    fun getReleaseNotes(category: Category, keyword: String?, page: Int, size: Int): ReleaseNoteResults {
+    fun getReleaseNotes(techStack: TechStack?, category: Category, keyword: String?, page: Int, size: Int): ReleaseNoteResults {
         val pageable = PageRequest.of(page - 1, size)
-        val techStacks = if (category == Category.ALL) null else category.techStacks
+        val techStacks = when {
+            techStack != null -> setOf(techStack)
+            category == Category.ALL -> null
+            else -> category.techStacks
+        }
+
 
         // Early Return
         if (techStacks != null && techStacks.isEmpty()) {
