@@ -12,7 +12,9 @@ public record GitHubReleaseListResponse(
         String category,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime publishedAt,
-        Boolean prerelease) {
+        Boolean prerelease,
+        String url,
+        String releaseUrl) {
 
     public static GitHubReleaseListResponse of(GitHubReleaseResult result) {
         return new GitHubReleaseListResponse(
@@ -22,7 +24,9 @@ public record GitHubReleaseListResponse(
                 result.name(),
                 result.category(),
                 result.publishedAt(),
-                result.prerelease()
+                result.prerelease(),
+                result.url(),
+                result.releaseUrl()
         );
     }
 }

@@ -40,6 +40,9 @@ public class GithubRelease {
     public String getReleaseUrl() {
         return techStack.releaseUrl(tagName);
     }
+    public String getUrl() {
+        return  techStack.url(tagName);
+    }
 
 }
 

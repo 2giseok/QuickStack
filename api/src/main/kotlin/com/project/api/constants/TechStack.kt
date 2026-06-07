@@ -92,4 +92,5 @@ enum class TechStack(val code: String, val ko: String, val en: String,val owner:
     }
 
     fun releaseUrl(tagName: String) =  "http://github.com/$owner/$repo/releases/tag/$tagName"
+    fun url(tagName: String) =  "http://github.com/$owner/$repo/releases"
 }

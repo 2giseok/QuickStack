@@ -34,6 +34,8 @@ data class ReleaseNoteResult(
     val name: String?,
     val category: Category,
     val publishedAt: LocalDateTime,
+    val url: String,
+    val releaseUrl: String
 ) {
     companion object {
         fun from(release: GithubRelease) = ReleaseNoteResult(
@@ -43,6 +45,8 @@ data class ReleaseNoteResult(
             name = release.name,
             category = Category.from(release.techStack),
             publishedAt = release.publishedAt,
+            url = release.getReleaseUrl(),
+            releaseUrl = release.getUrl()
         )
     }
 }

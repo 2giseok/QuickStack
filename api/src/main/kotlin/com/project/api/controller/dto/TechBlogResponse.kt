@@ -27,6 +27,8 @@ data class TechBlogResponse(
     val title: String,
     val publishedAt: LocalDateTime,
     val tags: List<String>,
+    val url: String,
+    val techBlogUrl: String,
 ) {
     companion object {
         fun from(result: TechBlogResult) = TechBlogResponse(
@@ -38,6 +40,8 @@ data class TechBlogResponse(
             title = result.title,
             publishedAt = result.publishedAt,
             tags = result.tags,
+            url = result.url,
+            techBlogUrl = result.techBlogUrl,
         )
     }
 }

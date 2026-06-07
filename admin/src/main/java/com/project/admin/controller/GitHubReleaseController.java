@@ -35,7 +35,6 @@ public class GitHubReleaseController implements GitHubReleaseApi {
     public ResponseEntity<GitHubReleaseResponse> getGitHubRelease(
             @PathVariable String id
     ) {
-
         Long longId =  Long.valueOf(id);
 
         GitHubReleaseResponse response = GitHubReleaseResponse.of(
