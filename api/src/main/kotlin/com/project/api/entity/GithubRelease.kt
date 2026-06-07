@@ -42,4 +42,5 @@ class GithubRelease(
     var status: Status,
 ) {
     fun  getReleaseUrl() = techStack.releaseUrl(tagName);
+    fun getUrl() = techStack.url(tagName);
 }

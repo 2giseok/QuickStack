@@ -34,7 +34,7 @@ class ReleaseNoteController(
                 searchCondition.category,
                 searchCondition.keyword,
                 searchCondition.page,
-                searchCondition.size
+                searchCondition.size,
             )
         )
 
