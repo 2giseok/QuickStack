@@ -97,6 +97,10 @@ public enum TechStack {
     public String releaseUrl(String tagName) {
         return "https://github.com/" + owner +"/" + repo + "/releases/tag/" + tagName;
     }
+    public String url(String tagName) {
+        return "https://github.com/" + owner +"/" + repo + "/releases";
+    }
+
 
 
 }

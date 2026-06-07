@@ -10,7 +10,9 @@ public record GitHubReleaseResult(
         String name,
         String category,
         LocalDateTime publishedAt,
-        Boolean prerelease) {
+        Boolean prerelease,
+        String url,
+        String releaseUrl) {
 
     public static GitHubReleaseResult from(GithubRelease release) {
 
@@ -23,7 +25,9 @@ public record GitHubReleaseResult(
                 release.getName(),
                 category,
                 release.getPublishedAt(),
-                release.getPrerelease()
+                release.getPrerelease(),
+                release.getReleaseUrl(),
+                release.getUrl()
         );
     }
 }

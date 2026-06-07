@@ -13,6 +13,7 @@ public record TechBlogListResponse(
         Region region,
         String title,
         String url,
+        String techBlogUrl,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime publishedAt,
         List<String> tags) {
@@ -24,6 +25,7 @@ public record TechBlogListResponse(
                 techBlog.region(),
                 techBlog.title(),
                 techBlog.url(),
+                techBlog.source().getUrl(),
                 techBlog.publishedAt(),
                 techBlog.tags()
         );
