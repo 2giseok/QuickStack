@@ -119,9 +119,9 @@ jobs:
           fi
             
           if [ "$REPOSITORY" = "batch" ]; then
-            DOCKER_CMD = "docker run -d --name $REPOSITORY --network host -e SPRING_PROFILES_ACTIVE=prod -e DB_PASSWORD=$DB_PASSWORD $REGISTRY/$REPOSITORY:latest"
+            DOCKER_CMD="docker run -d --name $REPOSITORY --network host -e SPRING_PROFILES_ACTIVE=prod -e DB_PASSWORD=$DB_PASSWORD $REGISTRY/$REPOSITORY:latest"
           else
-            DOCKER_CMD = "docker run -d --name $REPOSITORY --network quick-stack -e SPRING_PROFILES_ACTIVE=prod -e SPRING_DATASOURCE_USERNAME=admin -e SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD -p $PORT:$PORT $REGISTRY/$REPOSITORY:latest"
+            DOCKER_CMD="docker run -d --name $REPOSITORY --network quick-stack -e SPRING_PROFILES_ACTIVE=prod -e SPRING_DATASOURCE_USERNAME=admin -e SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD -p $PORT:$PORT $REGISTRY/$REPOSITORY:latest"
           fi
           
           aws ssm send-command \
