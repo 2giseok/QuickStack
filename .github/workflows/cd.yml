@@ -121,13 +121,13 @@ jobs:
           if [ "$REPOSITORY" = "batch" ]; then
             DOCKER_CMD = "docker run -d --name $REPOSITORY --network host -e SPRING_PROFILES_ACTIVE=prod -e DB_PASSWORD=$DB_PASSWORD $REGISTRY/$REPOSITORY:latest"
           else
-            docker run -d --name $REPOSITORY --network quick-stack -e SPRING_PROFILES_ACTIVE=prod -e SPRING_DATASOURCE_USERNAME=admin -e SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD -p $PORT:$PORT $REGISTRY/$REPOSITORY:latest
+            DOCKER_CMD = "docker run -d --name $REPOSITORY --network quick-stack -e SPRING_PROFILES_ACTIVE=prod -e SPRING_DATASOURCE_USERNAME=admin -e SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD -p $PORT:$PORT $REGISTRY/$REPOSITORY:latest"
           fi
           
           aws ssm send-command \
             --instance-ids ${{ secrets.PROD_INSTANCE_ID }} \
             --document-name "AWS-RunShellScript" \
-            --parameter commands="[\"/snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY\", 
+            --parameters commands="[\"/snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY\", 
               \"docker pull $REGISTRY/$REPOSITORY:latest\",
               \"docker stop $REPOSITORY || true\",
               \"docker rm $REPOSITORY || true\",
