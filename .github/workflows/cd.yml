@@ -104,9 +104,9 @@ jobs:
       - name: prod 배포
         if: ${{ inputs.environment == 'prod' }}
         run: |
-          REGISTRY= ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY= ${{ inputs.module }}
-          DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}
+          REGISTRY=${{steps.login-ecr.outputs.registry}}
+          REPOSITORY=${{inputs.module}}
+          DB_PASSWORD=${{secrets.PROD_DB_PASSWORD}}
       
           if [ "$REPOSITORY" = "api" ]; then
             PORT=8081
