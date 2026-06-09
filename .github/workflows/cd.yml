@@ -103,45 +103,35 @@ jobs:
 
       - name: prod 배포
         if: ${{ inputs.environment == 'prod' }}
-        uses: appleboy/ssh-action@v1
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: ${{ inputs.module }}
-        with:
-          host: ${{ secrets.PROD_EC2_HOST }}
-          username: ${{ secrets.PROD_USERNAME }}
-          key: ${{ secrets.PROD_EC2_PEM }}
-          envs: REGISTRY,REPOSITORY
-          script: |
-            /snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY
-            if [ "$REPOSITORY" = "api" ]; then
-              PORT=8081
-            elif [ "$REPOSITORY" = "batch" ]; then
-              PORT=5500
-            elif [ "$REPOSITORY" = "admin" ]; then
-              PORT=8080
-            elif [ "$REPOSITORY" = "crawler" ]; then
-              PORT=8082
-            fi
+        run: |
+          REGISTRY= ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY= ${{ inputs.module }}
+          DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}
+      
+          if [ "$REPOSITORY" = "api" ]; then
+            PORT=8081
+          elif [ "$REPOSITORY" = "batch" ]; then
+            PORT=5500
+          elif [ "$REPOSITORY" = "admin" ]; then
+            PORT=8080
+          elif [ "$REPOSITORY" = "crawler" ]; then
+            PORT=8082
+          fi
             
-            docker pull $REGISTRY/$REPOSITORY:latest
-            docker stop $REPOSITORY || true
-            docker rm $REPOSITORY|| true
-            docker system prune -f 
-            if [ "$REPOSITORY" = "batch" ]; then
-              docker run -d \
-                --name $REPOSITORY \
-                --network host \
-                -e SPRING_PROFILES_ACTIVE=prod \
-                -e DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }} \
-                $REGISTRY/$REPOSITORY:latest
-            else
-              docker run -d \
-                --name $REPOSITORY \
-                --network quick-stack \
-                -e SPRING_PROFILES_ACTIVE=prod \
-                -e SPRING_DATASOURCE_USERNAME=admin \
-                -e SPRING_DATASOURCE_PASSWORD=${{ secrets.PROD_DB_PASSWORD }} \
-                -p $PORT:$PORT \
-                $REGISTRY/$REPOSITORY:latest
-            fi
+          if [ "$REPOSITORY" = "batch" ]; then
+            DOCKER_CMD = "docker run -d --name $REPOSITORY --network host -e SPRING_PROFILES_ACTIVE=prod -e DB_PASSWORD=$DB_PASSWORD $REGISTRY/$REPOSITORY:latest"
+          else
+            docker run -d --name $REPOSITORY --network quick-stack -e SPRING_PROFILES_ACTIVE=prod -e SPRING_DATASOURCE_USERNAME=admin -e SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD -p $PORT:$PORT $REGISTRY/$REPOSITORY:latest
+          fi
+          
+          aws ssm send-command \
+            --instance-ids ${{ secrets.PROD_INSTANCE_ID }} \
+            --document-name "AWS-RunShellScript" \
+            --parameter commands="[\"/snap/bin/aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $REGISTRY\", 
+              \"docker pull $REGISTRY/$REPOSITORY:latest\",
+              \"docker stop $REPOSITORY || true\",
+              \"docker rm $REPOSITORY || true\",
+              \"docker system prune -f\",
+              \"$DOCKER_CMD\"
+            ]" \
+            --region ap-northeast-2
