@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/signup", "/signin", "/error",
-                                        "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                        "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health", "/actuator/prometheus").permitAll()
                                 .anyRequest().authenticated()
                 )
 
