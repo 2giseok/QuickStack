@@ -9,8 +9,8 @@ spring:
     name: crawler
   rabbitmq:
     host: localhost
-    username: ${rabbitMQ_username}
-    password: ${rabbitMQ_password}
+    username: ${rabbitMQ_username:guest}
+    password: ${rabbitMQ_password:guest}
     port: 5672
     listener:
       simple:

@@ -1,6 +1,11 @@
 spring:
   application:
     name: batch
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 5500
@@ -78,7 +83,10 @@ spring:
   config:
     activate:
       on-profile: prod
-
+  rabbitmq:
+    host: local-rabbitmq
+    username: ${rabbitMQ_username}
+    password: ${rabbitMQ_password}
 batch:
   cron:
     github-release: "0 0 0 * * *"
