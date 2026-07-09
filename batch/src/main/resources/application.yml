@@ -96,7 +96,7 @@ r2dbc:
   host: local-mysql
   port: 3306
   database: quick_stack
-  username: ${DB_PASSWORD}
+  username: ${DB_USERNAME}
   password: ${DB_PASSWORD}
 
 aws:
