@@ -25,5 +25,4 @@ public class TechBlogCrawlConsumer {
 
         crawlStorageService.crawl(url);
     }
-
 }

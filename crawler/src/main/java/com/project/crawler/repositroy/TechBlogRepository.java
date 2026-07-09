@@ -2,6 +2,7 @@ package com.project.crawler.repositroy;
 
 import com.project.crawler.constants.Status;
 import com.project.crawler.entity.TechBlog;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Limit;
@@ -11,23 +12,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface TechBlogRepository extends JpaRepository<TechBlog, Long> {
 
-    @Query("""
-            SELECT t FROM TechBlog t
-            WHERE t.status = :status
-            AND (
-            SELECT COUNT(t2) FROM TechBlog t2
-            WHERE t2.source = t.source
-            AND t2.status = :status
-            AND t2.publishedAt > t.publishedAt
-            ) < :limitSource
-            ORDER BY t.publishedAt DESC
-                        LIMIT :totalLimit
-            """)
-    List<TechBlog> findByStatusAndLimitSource(
-            @Param("status") Status status,
-            @Param("limitSource") int limitSource,
-            @Param("totalLimit") int totalLimit
-    );
-
     Optional<TechBlog> findByUrl(String url);
+
+    @Query("select t from TechBlog  t where t.status= :status AND t.publishedAt < :nowTime")
+    List<TechBlog> findByStatusAndCreatedAtBefore(Status status, LocalDateTime nowTime);
 }

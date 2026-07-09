@@ -31,7 +31,7 @@ management:
 
 batch:
   cron:
-    crawl: "0 0/1 * * * *"  # 1분마다
+    crawl: "0 * */6 * * *"
 
 spring:
   config:
@@ -66,6 +66,6 @@ spring:
 # application-prod.yml
 batch:
   cron:
-    crawl: "0 0 0/1 * * *"  # 1시간마다
+    crawl: "0 0 0/6 * * *"
 
 
