@@ -3,9 +3,11 @@ package com.project.admin.ai;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.admin.ai.dto.GeminiRequest;
+import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.resilience.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -39,28 +41,22 @@ public class GeminiService implements AiService {
         this.apiKey = apiKey;
     }
 
+    @Retryable(
+            includes = {HttpServerErrorException.class,
+                    HttpClientErrorException.TooManyRequests.class},
+            maxRetries = 2,
+            delay = 1000,
+            multiplier = 2.0,
+            timeUnit = TimeUnit.MILLISECONDS
+
+    )
     @Override
     public String summarize(String text) throws Exception {
         String fullPrompt = promptManager.buildPrompt(text);
-        String requestBody = objectMapper.writeValueAsString(
-                GeminiRequest.of(fullPrompt));
+        String requestBody = objectMapper.writeValueAsString(GeminiRequest.of(fullPrompt));
 
-        int maxRetry =2;
-        int attempt = 0;
-        while (true) {
-            try {
-                String response = callApi(requestBody);
-
-                return parseResponse(response);
-            } catch (HttpServerErrorException | HttpClientErrorException.TooManyRequests e) {
-                attempt++;
-                log.warn("호출 실패 {}/{}", attempt,maxRetry);
-                if(attempt > maxRetry) {
-                    throw  e;
-                }
-                Thread.sleep(1000L * attempt);
-            }
-        }
+        String response = callApi(requestBody);
+        return parseResponse(response);
     }
 
     private String callApi(String requestBody) throws Exception {

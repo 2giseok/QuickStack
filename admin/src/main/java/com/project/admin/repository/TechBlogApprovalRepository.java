@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface TechBlogApprovalRepository extends JpaRepository<TechBlogApproval, Long> {
     Optional<TechBlogApproval> findByTechBlogId(Long id);
     List<TechBlogApproval> findAllByTechBlogIdIn(List<Long> list);
+
+    List<Long> id(Long id);
 }

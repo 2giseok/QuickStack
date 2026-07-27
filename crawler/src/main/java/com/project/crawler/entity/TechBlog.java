@@ -8,11 +8,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name = "tech_blog")
+@NoArgsConstructor
 public class TechBlog {
 
     @Id
@@ -33,5 +36,13 @@ public class TechBlog {
     }
     public void markAsFailed() {
         this.status=Status.FAILED;
+    }
+
+    @Builder
+    public TechBlog(Long id, String url, Status status,LocalDateTime publishedAt) {
+        this.id=id;
+        this.url=url;
+        this.status=status;
+        this.publishedAt=publishedAt;
     }
 }

@@ -31,7 +31,7 @@ management:
 
 batch:
   cron:
-    crawl: "0 * */6 * * *"
+    crawl: "0 */1 * * * *"
 
 spring:
   config:

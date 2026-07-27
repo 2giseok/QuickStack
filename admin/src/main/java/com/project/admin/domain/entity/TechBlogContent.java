@@ -14,10 +14,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TechBlogContent {
 
     @Id
@@ -36,6 +41,17 @@ public class TechBlogContent {
 
     private String errorName;
     private LocalDateTime createdAt;
+
+    @Builder
+    private TechBlogContent(Long id, TechBlog techBlog,String content,
+            CrawlStatus status,String errorName, LocalDateTime createdAt) {
+        this.id=id;
+        this.techBlog=techBlog;
+        this.content=content;
+        this.status=status;
+        this.errorName=errorName;
+        this.createdAt=createdAt;
+    }
 
 
 }

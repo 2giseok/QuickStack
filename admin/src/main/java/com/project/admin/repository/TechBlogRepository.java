@@ -35,4 +35,6 @@ public interface TechBlogRepository extends
     List<Long> findUnpublishedUrlWithOutSummary(@Param("status") Status status);
 
     List<TechBlog> findAllByUrlIn(Collection<String> urls);
+
+    List<Long> id(Long id);
 }
