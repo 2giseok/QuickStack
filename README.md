@@ -4,14 +4,13 @@
 |---|---|
 | **admin 모듈** | 전담 개발 (인증, 승인, 요약 요청 API) |
 | **crawler 모듈** | 전담 개발 (수집, 파싱, 재시도) |
-| **batch 모듈** | RabbitMQ 발행 로직만 담당 (수집 로직은 팀원) |
-| **api 모듈** | 미담당 (Kotlin, 팀원) |
+| **batch 모듈** | RabbitMQ 발행 로직 담당 (수집 로직은 팀원) |
 | **AWS 인프라** | EC2 / RDS / ECR / Secrets Manager / SSM 구성 |
 | **CI/CD** | GitHub Actions 기반 빌드-배포 파이프라인 |
  
 ## 기술 스택
  
-Java 17, Kotlin, Spring Boot, Spring Security, MySQL(RDS), RabbitMQ, Docker, AWS, GitHub Actions
+Java 21, Kotlin, Spring Boot, Spring Security, MySQL(RDS), RabbitMQ, Docker, AWS, GitHub Actions
  
 ## 아키텍처
  
@@ -84,8 +83,13 @@ Spring Framework의 신규 내장 재시도 기능(`@Retryable`)을 적용했으
  
 crawler·admin 모듈의 서비스 계층을 중심으로 단위테스트를 작성했습니다. (Mockito, MockRestServiceServer 활용)
  
-- Entity/DTO/Config 등 로직이 없는 계층은 우선순위에서 제외
-- 커버리지 리포트(Jacoco): 서비스 계층 기준 측정
+| 모듈 | 패키지 | Line 커버리지 | Branch 커버리지 |
+|---|---|---|---|
+| crawler | `service` | 100% | 100% |
+| admin | `service` | 94% | 60% |
+| admin | `ai` | 83% | 75% |
+ 
+(Jacoco 기준 측정)
 ## 링크
  
 - [팀 프로젝트 원본 저장소](https://github.com/Trends-Stack-Summary/Backend)
