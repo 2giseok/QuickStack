@@ -5,6 +5,7 @@
 | **admin 모듈** | 전담 개발 (인증, 승인, 요약 요청 API) |
 | **crawler 모듈** | 전담 개발 (수집, 파싱, 재시도) |
 | **batch 모듈** | RabbitMQ 발행 로직 담당 (수집 로직은 팀원) |
+| **api 모듈** | 미담당 (Kotlin, 팀원) |
 | **AWS 인프라** | EC2 / RDS / ECR / Secrets Manager / SSM 구성 |
 | **CI/CD** | GitHub Actions 기반 빌드-배포 파이프라인 |
  
@@ -45,7 +46,8 @@ flowchart LR
     MQ --> C1 --> C2 --> C3
     C3 -->|본문 저장| DB
     A1 -->|본문 조회| DB
-    A2 -->|요약 요청| Gemini
+    A1 -->|요약 요청| A2
+    A2 -->|호출| Gemini
     A1 -->|승인 완료| DB
     D1 -->|조회| DB
     FE --> D1
