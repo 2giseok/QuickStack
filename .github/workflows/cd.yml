@@ -122,6 +122,7 @@ jobs:
             DOCKER_CMD="docker run -d \
               --name $REPOSITORY \
               --network quick-stack \
+              --restart unless-stopped \
               -e SPRING_PROFILES_ACTIVE=prod \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
@@ -132,6 +133,7 @@ jobs:
             DOCKER_CMD="docker run -d \
               --name $REPOSITORY \
               --network quick-stack \
+              --restart unless-stopped \
               -e SPRING_PROFILES_ACTIVE=prod \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
