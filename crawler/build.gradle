@@ -1,3 +1,23 @@
+plugins {
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
 configurations {
     all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'

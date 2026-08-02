@@ -89,8 +89,8 @@ spring:
     password: ${rabbitMQ_password}
 batch:
   cron:
-    github-release: "0 0 0 * * *"
-    tech-blog: "0 0 0 * * *"
+    github-release: "0 0 20 * * *"
+    tech-blog: "0 0 20 * * *"
 
 r2dbc:
   host: local-mysql

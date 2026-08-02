@@ -2,6 +2,7 @@ package com.project.crawler.service;
 
 import com.project.crawler.entity.TechBlog;
 import com.project.crawler.repositroy.TechBlogRepository;
+import com.project.crawler.util.TrackExecutionTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class CrawlStorageService {
     private final TechBlogRepository techBlogRepository;
 
 
+    @TrackExecutionTime
     public void crawl(String url) {
         Optional<TechBlog> target = techBlogRepository.findByUrl(url);
 

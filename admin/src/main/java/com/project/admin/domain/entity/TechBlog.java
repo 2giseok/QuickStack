@@ -5,8 +5,10 @@ import com.project.admin.constant.Source;
 import com.project.admin.constant.Status;
 import jakarta.persistence.*;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -16,6 +18,7 @@ import org.hibernate.type.SqlTypes;
 uniqueConstraints = {
         @UniqueConstraint(columnNames = {"url"})
 })
+@NoArgsConstructor
 public class TechBlog {
 
     @Id
@@ -39,5 +42,14 @@ public class TechBlog {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "tags", columnDefinition = "TEXT")
     private List<String> tags;
+
+
+    @Builder
+    public TechBlog(Long id, String url, Status status,LocalDateTime publishedAt) {
+        this.id=id;
+        this.url=url;
+        this.status=status;
+        this.publishedAt=publishedAt;
+    }
 
 }

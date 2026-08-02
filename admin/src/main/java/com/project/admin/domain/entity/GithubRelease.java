@@ -4,7 +4,9 @@ import com.project.admin.constant.Status;
 import com.project.admin.constant.TechStack;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Table(name = "github_release",
 uniqueConstraints = {
@@ -12,6 +14,7 @@ uniqueConstraints = {
 })
 @Entity
 @Getter
+@NoArgsConstructor
 public class GithubRelease {
 
     @Id
@@ -42,6 +45,17 @@ public class GithubRelease {
     }
     public String getUrl() {
         return  techStack.url(tagName);
+    }
+
+    @Builder
+    public GithubRelease(Long id,TechStack techStack,String tagName, String name, String body,Status status,LocalDateTime publishedAt) {
+        this.id=id;
+        this.techStack=techStack;
+        this.tagName=tagName;
+        this.name=name;
+        this.body=body;
+        this.status=status;
+        this.publishedAt=publishedAt;
     }
 
 }
