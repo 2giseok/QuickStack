@@ -1,5 +1,5 @@
 ### **퀵스택(QuickStack)**
-
+Service: https://quick-stack-psi.vercel.app/blogs
 기술 블로그와 GitHub 릴리즈 노트를  수집하고 기술 블로그의  Gemini API 요약 및  관리자가 검토 발행 서비스입니다.
 
 `2026.03 ~ 2026.06` | 4인 팀 (Backend 2, Frontend 1, UI/UX 1)
